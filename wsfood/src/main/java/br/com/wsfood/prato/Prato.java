@@ -27,6 +27,10 @@ public class Prato {
 	@ManyToOne
 	@JoinColumn(name="codigo_categoria")
 	private Categoria categoria;
+	@Column(name="imagem")
+	private String imagem;	
+	@Column(name="nome")
+	private String nome;
 	
 	public Integer getId() {
 		return id;
@@ -45,6 +49,18 @@ public class Prato {
 	}
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+	public String getImagem() {
+		return imagem;
+	}
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
 	

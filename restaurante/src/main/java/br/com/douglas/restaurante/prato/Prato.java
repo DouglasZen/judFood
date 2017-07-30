@@ -1,5 +1,7 @@
 package br.com.douglas.restaurante.prato;
 
+import java.io.File;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.douglas.restaurante.categoria.Categoria;
 
@@ -24,6 +29,11 @@ public class Prato {
 	@JoinColumn(name="codigo_categoria")
 	private Categoria categoria;
 	
+	@Column(name="imagem")
+	private String imagem;
+	
+	@Column(name="nome")
+	private String nome;
 	
 	
 	public Prato(String descricao, Categoria categoria) {
@@ -54,6 +64,24 @@ public class Prato {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	
 	
 	
 	

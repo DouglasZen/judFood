@@ -27,6 +27,12 @@ public class PratoDAO extends BaseDAO<Prato>{
 		List<Prato> pratos = c.list();
 		return pratos;
 	}
+	
+	public Prato getPrato(int id){
+		session = (Session) em.getDelegate();
+		Prato prato = (Prato) session.get(Prato.class, id);
+		return prato;
+	}
 
 	
 }

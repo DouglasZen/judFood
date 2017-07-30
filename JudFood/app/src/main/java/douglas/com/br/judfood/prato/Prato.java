@@ -12,6 +12,19 @@ public class Prato implements Serializable {
     private Integer id;
     private String descricao;
     private Categoria categoria;
+    private String imagem;
+    private String nome;
+
+    public Prato(Integer id, String descricao, Categoria categoria, String imagem) {
+        this.id = id;
+        this.descricao = descricao;
+        this.categoria = categoria;
+        this.imagem = imagem;
+    }
+
+    public Prato(){
+
+    }
 
     public Integer getId() {
         return id;
@@ -35,6 +48,22 @@ public class Prato implements Serializable {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String toString(){
