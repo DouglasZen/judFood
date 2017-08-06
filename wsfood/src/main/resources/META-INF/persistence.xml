@@ -8,6 +8,7 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     	
     	<class>br.com.wsfood.pessoa.Pessoa</class>
+    	<class>br.com.wsfood.prato.Prato</class>
         <properties>
 
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

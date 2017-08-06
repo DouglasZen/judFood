@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -14,23 +15,18 @@ import org.hibernate.SessionFactory;
 import br.com.wsfood.base.BaseDAO;
 
 
-public class PratoDAO extends BaseDAO<Prato>{
-
-	@Override
-	protected Class<Prato> getEntityClass() {
-		return Prato.class;
-	}
+public class PratoDAO extends BaseDAO{
+	
+	private EntityManager em = getEntityManager();
 	
 	public List<Prato> listarPratos(){
-		session = (Session) em.getDelegate();
-		Criteria c = session.createCriteria(getEntityClass());
-		List<Prato> pratos = c.list();
+		Query query = em.createQuery("select p from Prato p", Prato.class);
+		List<Prato> pratos = query.getResultList();
 		return pratos;
 	}
 	
 	public Prato getPrato(int id){
-		session = (Session) em.getDelegate();
-		Prato prato = (Prato) session.get(Prato.class, id);
+		Prato prato = (Prato) em.find(Prato.class, id);
 		return prato;
 	}
 
