@@ -60,8 +60,8 @@ public class LoginActivity extends AppCompatActivity {
                                     Pessoa p = new Pessoa();
                                     p.setEmail(object.getString("email"));
                                     p.setNome(object.getString("name"));
-                                    p.setIdfacebook(object.getString("id"));
-                                    setPessoaFacebook(p);
+                                    p.setIdFacebook(object.getString("id"));
+                                    verificaPessoaCadastrada(p);
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -104,11 +104,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Pessoa> call, Response<Pessoa> response) {
                 Log.v("RESPONSE", response.message());
                 if(response.isSuccessful()){
-                    /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                    finish();*/
-                    Toast.makeText(LoginActivity.this, "Registrado !", Toast.LENGTH_SHORT).show();
+                    finish();
+
                 }
             }
 
@@ -116,6 +116,30 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<Pessoa> call, Throwable t) {
                 Log.v("JSON",  t.getMessage());
                 Toast.makeText(LoginActivity.this, "Erro !", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void verificaPessoaCadastrada(final Pessoa pessoa){
+        IPessoaService service = ServiceGenerator.createService(IPessoaService.class);
+        final Call<Pessoa> call = service.getPessoaFacebook(pessoa.getIdFacebook());
+        call.enqueue(new Callback<Pessoa>() {
+            @Override
+            public void onResponse(Call<Pessoa> call, Response<Pessoa> response) {
+                if(response.code() != 404){
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    setPessoaFacebook(pessoa);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Pessoa> call, Throwable t) {
+                Log.e("FALHOU", t.getMessage());
             }
         });
     }
