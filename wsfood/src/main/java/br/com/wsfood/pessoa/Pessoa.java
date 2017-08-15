@@ -22,8 +22,8 @@ public class Pessoa {
 	private String nome;
 	@Column(name="email")
 	private String email;
-	//@Column(name="senha")
-	//private String senha;
+	@Column(name="senha")
+	private String senha;
 	
 	public Integer getCodigo() {
 		return codigo;
@@ -49,12 +49,12 @@ public class Pessoa {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	/*public String getSenha() {
+	public String getSenha() {
 		return senha;
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}*/
+	}
 	
 	
 }

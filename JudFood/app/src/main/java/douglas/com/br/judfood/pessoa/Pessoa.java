@@ -11,6 +11,7 @@ public class Pessoa implements Serializable {
     private String nome;
     private String email;
     private String idFacebook;
+    private String senha;
 
     public Integer getCodigo() {
         return codigo;
@@ -42,5 +43,13 @@ public class Pessoa implements Serializable {
 
     public void setIdFacebook(String idfacebook) {
         this.idFacebook = idfacebook;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response.Status;
 
 import br.com.wsfood.pessoa.Pessoa;
 import br.com.wsfood.pessoa.PessoaDAO;
+import br.com.wsfood.util.Resultado;
 
 @Path("/pessoa/")
 public class PessoaResource {
@@ -42,6 +43,20 @@ public class PessoaResource {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 		
+		
+	}
+	
+	@POST
+	@Path("login")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response getLogin(Pessoa pessoa){
+		Resultado resultado = new PessoaDAO().login(pessoa.getEmail(), pessoa.getSenha());
+		if(resultado.isResultado()){
+			return Response.ok().entity(resultado).build();
+		}else{
+			return Response.status(Status.NOT_FOUND).build();
+		}
 		
 	}
 	

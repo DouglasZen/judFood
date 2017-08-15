@@ -27,6 +27,7 @@ import douglas.com.br.judfood.prato.Prato;
 import douglas.com.br.judfood.prato.Pratos;
 import douglas.com.br.judfood.service.IPratoService;
 import douglas.com.br.judfood.service.ServiceGenerator;
+import douglas.com.br.judfood.util.Prefs;
 import douglas.com.br.judfood.view.login.LoginActivity;
 import douglas.com.br.judfood.view.prato.PratoActivity;
 import douglas.com.br.judfood.view.prato.PratoAdapter;
@@ -51,7 +52,8 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if(AccessToken.getCurrentAccessToken() == null){
+        boolean logado = Prefs.getLogado(this, "login");
+        if(AccessToken.getCurrentAccessToken() == null && !logado){
             Log.v("MAIN", "sucesso");
             goLogin();
         }

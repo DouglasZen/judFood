@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.wsfood.base.BaseDAO;
+import br.com.wsfood.util.Resultado;
 
 public class PessoaDAO extends BaseDAO{
 	
@@ -19,6 +20,22 @@ public class PessoaDAO extends BaseDAO{
 			return list.get(0);
 		else
 			return null;
+		
+	}
+	
+	public Resultado login(String email, String senha){
+		Resultado resultado = new Resultado();
+		Query query = em.createQuery("select p from Pessoa p where p.email = :email and p.senha = :senha" , Pessoa.class);
+		query.setParameter("email", email);
+		query.setParameter("senha", senha);
+		List<Pessoa> list = (List<Pessoa>) query.getResultList();
+		if(!list.isEmpty()){
+			resultado.setResultado(true);
+			return resultado;
+		}else{
+			resultado.setResultado(false);
+			return resultado;
+		}
 		
 	}
 	

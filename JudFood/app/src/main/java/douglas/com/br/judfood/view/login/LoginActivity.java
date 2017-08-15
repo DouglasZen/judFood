@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.util.DiffUtil;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -25,9 +27,13 @@ import java.util.Arrays;
 
 import douglas.com.br.judfood.R;
 import douglas.com.br.judfood.pessoa.Pessoa;
+import douglas.com.br.judfood.service.ILoginService;
 import douglas.com.br.judfood.service.IPessoaService;
 import douglas.com.br.judfood.service.ServiceGenerator;
+import douglas.com.br.judfood.util.Prefs;
+import douglas.com.br.judfood.util.Resultado;
 import douglas.com.br.judfood.view.MainActivity;
+import douglas.com.br.judfood.view.cadastro.CadastroActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+    private EditText email;
+    private EditText senha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,5 +156,43 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void cadastrar(View view){
+        Intent intent = new Intent(this, CadastroActivity.class);
+        startActivity(intent);
+    }
+
+    public void entrar(View view){
+        Prefs.setLogado(this, "login", false);
+        email = (EditText) findViewById(R.id.email);
+        senha = (EditText) findViewById(R.id.senha);
+        Pessoa pessoa = new Pessoa();
+        pessoa.setSenha(senha.getText().toString());
+        pessoa.setEmail(email.getText().toString());
+
+        ILoginService service = ServiceGenerator.createService(ILoginService.class);
+        final Call<Resultado> call = service.login(pessoa);
+        call.enqueue(new Callback<Resultado>() {
+            @Override
+            public void onResponse(Call<Resultado> call, Response<Resultado> response) {
+                if(response.isSuccessful()){
+                    Resultado r = response.body();
+                    if(r.isResultado()){
+                        Log.v("LOGIN", "logou");
+                        Prefs.setLogado(LoginActivity.this, "login", true);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Resultado> call, Throwable t) {
+                Log.e("ERRO LOGIN", t.getMessage());
+            }
+        });
     }
 }
