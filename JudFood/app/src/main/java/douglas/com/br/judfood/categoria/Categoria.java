@@ -12,6 +12,7 @@ public class Categoria implements Serializable {
     private Integer codigo;
     private String descricao;
     private Restaurante restaurante;
+    private String imagem;
 
     public Integer getCodigo() {
         return codigo;
@@ -35,5 +36,13 @@ public class Categoria implements Serializable {
 
     public void setRestaurante(Restaurante restaurante) {
         this.restaurante = restaurante;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }

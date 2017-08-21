@@ -17,7 +17,7 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +27,8 @@
         <activity android:name=".view.prato.PratoActivity" />
         <activity android:name=".view.login.LoginActivity" />
         <activity android:name=".view.cadastro.CadastroActivity" />
-        <activity android:name=".view.cadastro.CadastroSucessoActivity"></activity>
+        <activity android:name=".view.cadastro.CadastroSucessoActivity" />
+
     </application>
 
 </manifest>

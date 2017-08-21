@@ -19,8 +19,9 @@ public class PratoDAO extends BaseDAO{
 	
 	private EntityManager em = getEntityManager();
 	
-	public List<Prato> listarPratos(){
-		Query query = em.createQuery("select p from Prato p", Prato.class);
+	public List<Prato> listarPratos(int codCategoria){
+		Query query = em.createQuery("select p from Prato p where p.categoria.codigo = :codigo", Prato.class);
+		query.setParameter("codigo", codCategoria);
 		List<Prato> pratos = query.getResultList();
 		return pratos;
 	}

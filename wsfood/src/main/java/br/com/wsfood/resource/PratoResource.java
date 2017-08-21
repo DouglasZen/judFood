@@ -18,9 +18,10 @@ import br.com.wsfood.prato.PratoDAO;
 public class PratoResource {
 	
 	@GET
+	@Path("ranking/{codCategoria}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response listPratos(){
-		List<Prato> pratos = new PratoDAO().listarPratos();
+	public Response listPratos(@PathParam("codCategoria") int codCategoria){
+		List<Prato> pratos = new PratoDAO().listarPratos(codCategoria);
 		
 		if(pratos != null){
 			GenericEntity<List<Prato>> result = new GenericEntity<List<Prato>>(pratos){};

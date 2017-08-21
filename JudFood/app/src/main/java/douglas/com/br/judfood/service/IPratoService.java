@@ -11,8 +11,8 @@ import retrofit2.http.Path;
  */
 
 public interface IPratoService {
-    @GET("prato/")
-    Call<Pratos> listPratos();
+    @GET("prato/ranking/{codCategoria}")
+    Call<Pratos> listPratos(@Path("codCategoria") int codCategoria);
 
     @GET("prato/{id}")
     Call<Prato> getPrato(@Path("id") int id);

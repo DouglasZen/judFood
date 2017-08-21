@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity{
             goLogin();
         }
 
-        listarPratos();
+        //listarPratos();
 
 
     }
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void listarPratos(){
+    /*public void listarPratos(){
         final List<Prato> pratos = new ArrayList<Prato>();
 
         IPratoService service = ServiceGenerator.createService(IPratoService.class);
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity{
                 valueAnimator.start();
             }
         };
-    }
+    }*/
 
 
 
