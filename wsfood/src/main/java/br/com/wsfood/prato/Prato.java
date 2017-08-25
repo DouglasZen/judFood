@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.wsfood.categoria.Categoria;
+import br.com.wsfood.restaurante.Restaurante;
 
 
 
@@ -31,6 +32,9 @@ public class Prato {
 	private String imagem;	
 	@Column(name="nome")
 	private String nome;
+	@ManyToOne
+	@JoinColumn(name="codigo_restaurante")
+	private Restaurante restaurante;
 	
 	public Integer getId() {
 		return id;
@@ -62,6 +66,13 @@ public class Prato {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	public Restaurante getRestaurante() {
+		return restaurante;
+	}
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
+	}
+	
 	
 	
 }
