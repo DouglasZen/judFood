@@ -26,6 +26,9 @@ public class Categoria {
 	@ManyToOne
 	@JoinColumn(name="codigo_restaurante")
 	private Restaurante restaurante;
+	@Column(name="imagem")
+	private String imagem;
+	
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -43,6 +46,12 @@ public class Categoria {
 	}
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
+	}
+	public String getImagem() {
+		return imagem;
+	}
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
 	}
 	
 	

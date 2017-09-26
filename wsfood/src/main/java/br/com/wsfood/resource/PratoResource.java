@@ -31,6 +31,18 @@ public class PratoResource {
 	}
 	
 	@GET
+	@Path("restaurante/{codRestaurante}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listPratosRestaurante(@PathParam("codRestaurante") int codRestaurante){
+		List<Prato> pratos = new PratoDAO().listarPratoRestaurante(codRestaurante);
+		if(pratos != null){
+			GenericEntity<List<Prato>> result = new GenericEntity<List<Prato>>(pratos){};
+			return Response.ok().entity(result).build();
+		}
+		return Response.status(Status.NOT_FOUND).build();
+	}
+	
+	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getPrato(@PathParam("id") String id){

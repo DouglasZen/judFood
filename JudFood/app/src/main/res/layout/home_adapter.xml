@@ -10,10 +10,24 @@
     android:layout_margin="2dp"
     app:cardCornerRadius="2dp"
     app:contentPadding="10dp">
+    <!--app:cardBackgroundColor="@color/cardbackground"-->
+
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+        <ImageView
+            android:id="@+id/imagemCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="140dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentTop="true"
+
+            android:src="@drawable/categoria2"
+            android:rotation="20.0"
+
+            />
 
         <TextView
             android:id="@+id/tcodigo"
@@ -21,12 +35,14 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:visibility="invisible"
+            android:textColor="@color/fonteCard"
 
             />
         <TextView
             android:id="@+id/tnomeCategoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:text="TextView"
 
 

@@ -26,6 +26,13 @@ public class PratoDAO extends BaseDAO{
 		return pratos;
 	}
 	
+	public List<Prato> listarPratoRestaurante(int codigoRestaurante){
+		Query query = em.createQuery("select p from Prato p where p.restaurante.codigo = :codigo", Prato.class);
+		query.setParameter("codigo", codigoRestaurante);
+		List<Prato> pratos = query.getResultList();
+		return pratos;
+	}
+	
 	public Prato getPrato(int id){
 		Prato prato = (Prato) em.find(Prato.class, id);
 		return prato;

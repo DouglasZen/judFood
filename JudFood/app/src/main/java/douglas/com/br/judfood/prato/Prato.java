@@ -3,6 +3,7 @@ package douglas.com.br.judfood.prato;
 import java.io.Serializable;
 
 import douglas.com.br.judfood.categoria.Categoria;
+import douglas.com.br.judfood.restaurante.Restaurante;
 
 /**
  * Created by Douglas on 05/06/2017.
@@ -14,6 +15,7 @@ public class Prato implements Serializable {
     private Categoria categoria;
     private String imagem;
     private String nome;
+    private Restaurante restaurante;
 
     public Prato(Integer id, String descricao, Categoria categoria, String imagem) {
         this.id = id;
@@ -64,6 +66,14 @@ public class Prato implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Restaurante getRestaurante() {
+        return restaurante;
+    }
+
+    public void setRestaurante(Restaurante restaurante) {
+        this.restaurante = restaurante;
     }
 
     public String toString(){

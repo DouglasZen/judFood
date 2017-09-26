@@ -26,4 +26,10 @@ public class CategoriaDAO implements ICategoria{
 		
 	}
 
+	@Override
+	public void salvarCategoria(Categoria categoria) {
+		sessionFactory.getCurrentSession().saveOrUpdate(categoria);
+		
+	}
+
 }

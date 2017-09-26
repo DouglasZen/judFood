@@ -1,4 +1,4 @@
-package douglas.com.br.judfood.view.prato;
+package douglas.com.br.judfood.view.avaliacao;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
@@ -29,14 +29,13 @@ import douglas.com.br.judfood.avaliacao.Avaliacoes;
 import douglas.com.br.judfood.favorito.Favorito;
 import douglas.com.br.judfood.pessoa.Pessoa;
 import douglas.com.br.judfood.prato.Prato;
-import douglas.com.br.judfood.prato.Pratos;
 import douglas.com.br.judfood.restaurante.Restaurante;
 import douglas.com.br.judfood.service.IAvaliacaoService;
 import douglas.com.br.judfood.service.IFavoritoService;
-import douglas.com.br.judfood.service.IPratoService;
 import douglas.com.br.judfood.service.ServiceGenerator;
 import douglas.com.br.judfood.util.Prefs;
 import douglas.com.br.judfood.view.login.LoginActivity;
+import douglas.com.br.judfood.view.prato.PratoActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,30 +43,28 @@ import retrofit2.Response;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
-public class PratoActivity extends AppCompatActivity {
+public class AvaliacaoActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private List<Prato> listPrato = new ArrayList<Prato>();
+    private List<Avaliacao> listAvaliacao = new ArrayList<Avaliacao>();
     private boolean cardOpen = false;
     private int originalHeight = 0;
     ImageView iv;
     TextView tvDesc;
     CardView cv;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_prato);
+        setContentView(R.layout.activity_avaliacao);
         boolean logado = Prefs.getLogado(this, "login");
         if(AccessToken.getCurrentAccessToken() == null && !logado){
             goLogin();
         }
         Bundle extras = getIntent().getExtras();
         if(extras != null){
-            listarPratos(extras.getString("codigoCategoria").toString());
+            listarAvaliacoes(extras.getString("codigoCategoria").toString());
         }
-
     }
 
     private void goLogin() {
@@ -76,54 +73,42 @@ public class PratoActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void listarPratos(String codCategoria){
-        final List<Prato> pratos = new ArrayList<Prato>();
+    public void listarAvaliacoes(String codCategoria){
+        final List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
+        IAvaliacaoService service = ServiceGenerator.createService(IAvaliacaoService.class);
 
-        IPratoService service = ServiceGenerator.createService(IPratoService.class);
+        final Call<Avaliacoes> call = service.listranking(Integer.parseInt(codCategoria));
 
-        final Call<Pratos> call = service.listPratos(Integer.parseInt(codCategoria));
-
-        call.enqueue(new Callback<Pratos>() {
-
+        call.enqueue(new Callback<Avaliacoes>() {
             @Override
-            public void onResponse(Call<Pratos> call, Response<Pratos> response) {
-                if (response.isSuccessful()) {
-                    Pratos p = response.body();
-                    pratos.addAll(p.getPrato());
+            public void onResponse(Call<Avaliacoes> call, Response<Avaliacoes> response) {
+                if(response.isSuccessful()){
+                    Avaliacoes a = response.body();
+                    avaliacoes.addAll(a.getAvaliacao());
 
-                    recyclerView = (RecyclerView) findViewById(R.id.listaPratos);
-                    RecyclerView.LayoutManager layout = new LinearLayoutManager(PratoActivity.this, LinearLayoutManager.VERTICAL, false);
+                    recyclerView = (RecyclerView) findViewById(R.id.listaranking);
+                    RecyclerView.LayoutManager layout = new LinearLayoutManager(AvaliacaoActivity.this, LinearLayoutManager.VERTICAL, false);
                     recyclerView.setLayoutManager(layout);
-                    recyclerView.setAdapter(new PratoAdapter(pratos, PratoActivity.this, onClickPrato()));
-                    listPrato = pratos;
-
-                } else {
+                    recyclerView.setAdapter(new AvaliacaoAdapter(avaliacoes, AvaliacaoActivity.this, onClickAvaliacao()));
+                }else{
                     Log.e("ERRO RESPONSE",  response.message());
-
                 }
-
-
             }
 
             @Override
-            public void onFailure(Call<Pratos> call, Throwable t) {
+            public void onFailure(Call<Avaliacoes> call, Throwable t) {
                 t.printStackTrace();
                 Log.e("ERRO",  t.getMessage());
             }
         });
-
-
     }
 
-
-
-    private PratoAdapter.PratoOnClickListener onClickPrato(){
-        return new PratoAdapter.PratoOnClickListener(){
-            @Override
-            public void onClickPrato(final View view, int idx){
+    private AvaliacaoAdapter.AvaliacaoonClickListener onClickAvaliacao(){
+        return new AvaliacaoAdapter.AvaliacaoonClickListener(){
+            public void onClickAvaliacao(final  View view, int idx){
                 ValueAnimator valueAnimator;
-                iv = (ImageView) view.findViewById(R.id.imageView);
-                tvDesc = (TextView) view.findViewById(R.id.tdescricao);
+                iv = (ImageView) view.findViewById(R.id.a_imageView);
+                tvDesc = (TextView) view.findViewById(R.id.a_tdescricao);
                 if (originalHeight == 0) {
                     originalHeight = view.getHeight();
                 }
@@ -154,7 +139,7 @@ public class PratoActivity extends AppCompatActivity {
 
                         }
                     });
-                    cv = (CardView) view.findViewById(R.id.cardPrato);
+                    cv = (CardView) view.findViewById(R.id.cardAvaliacao);
                     cv.startAnimation(a);
                 }
                 valueAnimator.setDuration(200);
@@ -171,12 +156,12 @@ public class PratoActivity extends AppCompatActivity {
 
             @Override
             public void onClickFavorito(View view, int idx) {
-                ImageButton star = (ImageButton)  view.findViewById(R.id.favorito);
-                TextView codigo = (TextView) view.findViewById(R.id.codigo_prato);
-                TextView codigoRestaurante = (TextView) view.findViewById(R.id.codigo_restaurante);
+                ImageButton star = (ImageButton)  view.findViewById(R.id.a_favorito);
+                TextView codigo = (TextView) view.findViewById(R.id.a_codigo_prato);
+                TextView codigoRestaurante = (TextView) view.findViewById(R.id.a_codigo_restaurante);
                 star.setColorFilter(Color.rgb(255,255,0));
-                int codigoPessoa = Prefs.getCodigoPessoa(PratoActivity.this,"codigoPessoa");
-                Toast.makeText(PratoActivity.this, codigo.getText() + " rest " + codigoRestaurante.getText() , Toast.LENGTH_SHORT).show();
+                int codigoPessoa = Prefs.getCodigoPessoa(AvaliacaoActivity.this,"codigoPessoa");
+                Toast.makeText(AvaliacaoActivity.this, codigo.getText() + " rest " + codigoRestaurante.getText() , Toast.LENGTH_SHORT).show();
                 favoritar(codigoPessoa, Integer.parseInt(codigo.getText().toString()), Integer.parseInt(codigoRestaurante.getText().toString()));
             }
         };
@@ -202,7 +187,7 @@ public class PratoActivity extends AppCompatActivity {
             public void onResponse(Call<Favorito> call, Response<Favorito> response) {
                 Log.v("RESPONSE", response.message());
                 if(response.isSuccessful()){
-                    Toast.makeText(PratoActivity.this, "Favoritado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AvaliacaoActivity.this, "Favoritado", Toast.LENGTH_SHORT).show();
                 }
             }
 

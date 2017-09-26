@@ -35,6 +35,7 @@ import douglas.com.br.judfood.util.Resultado;
 import douglas.com.br.judfood.view.MainActivity;
 import douglas.com.br.judfood.view.cadastro.CadastroActivity;
 import douglas.com.br.judfood.view.home.HomeActivity;
+import douglas.com.br.judfood.view.prato.PratoActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -113,6 +114,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Pessoa> call, Response<Pessoa> response) {
                 Log.v("RESPONSE", response.message());
                 if(response.isSuccessful()){
+                    Pessoa p = response.body();
+                    Prefs.setCodigoPessoa(LoginActivity.this, "codigoPessoa", p.getCodigo());
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
@@ -136,7 +139,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Pessoa> call, Response<Pessoa> response) {
                 if(response.code() != 404){
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Pessoa p = response.body();
+                    Prefs.setCodigoPessoa(LoginActivity.this, "codigoPessoa", p.getCodigo());
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
@@ -182,6 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(r.isResultado()){
                         Log.v("LOGIN", "logou");
                         Prefs.setLogado(LoginActivity.this, "login", true);
+                        Prefs.setCodigoPessoa(LoginActivity.this, "codigoPessoa", r.getCodigoPessoa());
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);

@@ -15,5 +15,8 @@
 	<definition name="cadRestaurante" extends="main">
 		<put-attribute name="body" value="/views/restaurante/cadRestaurante.jsp"/>
 	</definition>
+	<definition name="cadastroCategoria" extends="main">
+		<put-attribute name="body" value="/views/categoria/cadastro.jsp"/>
+	</definition>
 
 </tiles-definitions>

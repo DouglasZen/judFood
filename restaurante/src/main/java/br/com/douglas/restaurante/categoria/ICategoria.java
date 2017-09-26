@@ -4,4 +4,6 @@ import java.util.List;
 
 public interface ICategoria {
 	public List<Categoria> listCategoria(int codigoRestaurante);
+	
+	public void salvarCategoria(Categoria categoria);
 }

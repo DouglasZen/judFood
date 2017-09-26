@@ -50,7 +50,7 @@ public class HomeAdapter extends RecyclerView.Adapter{
             byte[] image = Base64.decode(categoria.getImagem(), Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
 
-            holder.imagem.setImageBitmap(bitmap);
+            holder.imagemCategoria.setImageBitmap(bitmap);
 
         }
         holder.codigo.setText(categoria.getCodigo().toString());

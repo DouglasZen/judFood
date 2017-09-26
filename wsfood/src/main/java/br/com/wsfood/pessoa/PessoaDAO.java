@@ -31,6 +31,7 @@ public class PessoaDAO extends BaseDAO{
 		List<Pessoa> list = (List<Pessoa>) query.getResultList();
 		if(!list.isEmpty()){
 			resultado.setResultado(true);
+			resultado.setCodigoPessoa(list.get(0).getCodigo());
 			return resultado;
 		}else{
 			resultado.setResultado(false);

@@ -22,6 +22,7 @@ import douglas.com.br.judfood.service.ICategoriaService;
 import douglas.com.br.judfood.service.ServiceGenerator;
 import douglas.com.br.judfood.util.Prefs;
 import douglas.com.br.judfood.view.MainActivity;
+import douglas.com.br.judfood.view.avaliacao.AvaliacaoActivity;
 import douglas.com.br.judfood.view.login.LoginActivity;
 import douglas.com.br.judfood.view.prato.PratoActivity;
 import retrofit2.Call;
@@ -81,7 +82,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClickCategoria(View view, int idx) {
                 TextView codigo = (TextView) view.findViewById(R.id.tcodigo);
-                Intent i = new Intent(HomeActivity.this, PratoActivity.class);
+                Intent i = new Intent(HomeActivity.this, AvaliacaoActivity.class);
                 i.putExtra("codigoCategoria", codigo.getText().toString());
                 startActivity(i);
             }

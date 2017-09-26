@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardAvaliacao"
+    android:layout_width="fill_parent"
+    android:layout_height="100dp"
+    android:layout_gravity="center"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="2dp"
+    app:contentPadding="10dp">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <TextView
+            android:id="@+id/a_codigo_prato"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            />
+        <TextView
+            android:id="@+id/a_codigo_restaurante"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            />
+
+        <TextView
+            android:id="@+id/a_tnome"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+
+            />
+        <ImageView
+            android:id="@+id/a_imageView"
+            android:layout_below="@+id/a_tnome"
+            android:layout_width="match_parent"
+            android:layout_height="200px"
+            android:visibility="invisible"/>
+        <TextView
+            android:id="@+id/a_tdescricao"
+            android:layout_below="@+id/a_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus justo at interdum ultrices. Suspendisse eget justo consequat erat viverra tempor. Nulla sed gravida ante, non bibendum enim. Integer faucibus eu mi porta iaculis. Proin congue, ligula quis dignissim tincidunt, arcu lorem ultricies nibh, tempus ornare mauris est sit amet dolor. In euismod convallis erat vel cursus. Vivamus ornare nisi bibendum odio auctor, vel semper est tempor. Mauris id turpis scelerisque justo laoreet ornare. Nulla arcu augue, semper et velit sodales, egestas vulputate ipsum. Pellentesque aliquet lacus vitae diam cursus ultrices."
+            android:visibility="invisible"
+            />
+
+        <ImageButton
+            android:id="@+id/a_favorito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="52dp"
+            android:background="@color/cardview_light_background"
+            app:srcCompat="@android:drawable/star_off"
+            android:onClick="favoritar"/>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+

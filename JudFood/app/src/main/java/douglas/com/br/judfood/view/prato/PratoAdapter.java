@@ -30,6 +30,8 @@ public class PratoAdapter extends RecyclerView.Adapter{
 
     public interface  PratoOnClickListener{
         public void onClickPrato(View view, int idx);
+        public void onClickFavorito(View view, int idx);
+
     }
 
     public PratoAdapter(List<Prato> pratos, Context context, PratoOnClickListener onClickListener){
@@ -54,12 +56,21 @@ public class PratoAdapter extends RecyclerView.Adapter{
         //holder.descricao.setText(prato.getDescricao());
         holder.imagem.setImageBitmap(bitmap);
         holder.nome.setText(prato.getNome());
+        holder.codigoPrato.setText(String.valueOf(prato.getId()));
+        holder.codigoRestaurante.setText(String.valueOf(prato.getRestaurante().getCodigo()));
 
        if(onClickListener != null){
            holder.itemView.setOnClickListener(new View.OnClickListener(){
                public void onClick(View v){
                    onClickListener.onClickPrato(holder.view, position);
                }
+           });
+
+           holder.btFavorito.setOnClickListener(new View.OnClickListener(){
+               public void onClick(View view){
+                   onClickListener.onClickFavorito(holder.view, position);
+               }
+
            });
        }
 

@@ -22,4 +22,18 @@ public class Prefs {
         boolean logado = pref.getBoolean(chave, true);
         return logado;
     }
+
+    public static void setCodigoPessoa(Context context, String chave, int valor){
+        SharedPreferences pref = context.getSharedPreferences(PREF_ID, 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt(chave, valor);
+        editor.commit();
+
+    }
+
+    public static int getCodigoPessoa(Context context, String chave){
+        SharedPreferences pref = context.getSharedPreferences(PREF_ID, 0);
+        int s = pref.getInt(chave, 0);
+        return  s;
+    }
 }

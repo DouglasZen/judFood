@@ -6,6 +6,7 @@ package douglas.com.br.judfood.util;
 
 public class Resultado {
     boolean resultado;
+    int codigoPessoa;
 
     public boolean isResultado() {
         return resultado;
@@ -13,5 +14,13 @@ public class Resultado {
 
     public void setResultado(boolean resultado) {
         this.resultado = resultado;
+    }
+
+    public int getCodigoPessoa() {
+        return codigoPessoa;
+    }
+
+    public void setCodigoPessoa(int codigoPessoa) {
+        this.codigoPessoa = codigoPessoa;
     }
 }

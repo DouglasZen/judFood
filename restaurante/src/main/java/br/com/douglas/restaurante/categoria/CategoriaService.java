@@ -16,4 +16,8 @@ public class CategoriaService {
 	public List<Categoria> listarCategoria(int codigoRestaurante){
 		return dao.listCategoria(codigoRestaurante);
 	}
+	
+	public void salvarCategoria(Categoria categoria){
+		dao.salvarCategoria(categoria);
+	}
 }

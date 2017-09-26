@@ -17,6 +17,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
     final ImageView imagem;
     final TextView nome;
     final View view;
+    final ImageView imagemCategoria;
 
     public HomeViewHolder(View view) {
         super(view);
@@ -24,5 +25,6 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
         codigo = (TextView) view.findViewById(R.id.tcodigo);
         imagem = (ImageView) view.findViewById(R.id.imageView);
         nome = (TextView) view.findViewById(R.id.tnomeCategoria);
+        imagemCategoria = (ImageView) view.findViewById(R.id.imagemCategoria);
     }
 }
