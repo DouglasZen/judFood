@@ -18,6 +18,7 @@ import com.facebook.login.LoginManager;
 
 import douglas.com.br.judfood.R;
 import douglas.com.br.judfood.util.Prefs;
+import douglas.com.br.judfood.view.favorito.FavoritoActivity;
 import douglas.com.br.judfood.view.login.LoginActivity;
 
 
@@ -43,24 +44,35 @@ public class Menu extends Fragment {
                 sair(v);
             }
         });
+
+        view .findViewById(R.id.btFavorito).setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                favoritos(v);
+            }
+        });
         return view;
     }
 
     public void menu(View view){
         ImageButton bmenu = (ImageButton) view.findViewById(R.id.btMenu);
         ImageButton bsair = (ImageButton) view.findViewById(R.id.btSair);
+        ImageButton bfav = (ImageButton) view.findViewById(R.id.btFavorito);
         AnimatorSet lista = new AnimatorSet();
         ObjectAnimator obj;
 
         if(!abrir){
             obj = ObjectAnimator.ofFloat(bmenu, "rotation", 0, -90);
             lista.playSequentially(obj);
-            obj = ObjectAnimator.ofFloat(bsair, "x", bsair.getX(), bmenu.getX() + (bmenu.getWidth() - 2));
+            obj = ObjectAnimator.ofFloat(bfav, "x", bfav.getX(), bmenu.getX() + (bmenu.getWidth()));
+            lista.playSequentially(obj);
+            obj = ObjectAnimator.ofFloat(bsair, "x", bsair.getX(), bmenu.getX() + (bmenu.getWidth() + bfav.getWidth()));
             lista.playSequentially(obj);
 
             abrir = true;
         }else{
-            obj = ObjectAnimator.ofFloat(bsair, "x", bsair.getX(), bmenu.getX() + 2);
+            obj = ObjectAnimator.ofFloat(bfav, "x", bfav.getX(), bmenu.getX() );
+            lista.playSequentially(obj);
+            obj = ObjectAnimator.ofFloat(bsair, "x", bsair.getX(), bmenu.getX() - (bmenu.getWidth() - bfav.getWidth()) );
             lista.playSequentially(obj);
             obj = ObjectAnimator.ofFloat(bmenu, "rotation", 0, 0);
             lista.playSequentially(obj);
@@ -82,6 +94,12 @@ public class Menu extends Fragment {
         }
 
         Intent intent = new Intent(getActivity(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public void favoritos(View view){
+        Intent intent = new Intent(getActivity(), FavoritoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
