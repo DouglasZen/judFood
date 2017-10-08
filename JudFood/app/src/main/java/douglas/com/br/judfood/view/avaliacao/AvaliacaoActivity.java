@@ -75,6 +75,7 @@ public class AvaliacaoActivity extends AppCompatActivity {
 
     public void listarAvaliacoes(String codCategoria){
         final List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
+
         IAvaliacaoService service = ServiceGenerator.createService(IAvaliacaoService.class);
 
         final Call<Avaliacoes> call = service.listranking(Integer.parseInt(codCategoria));
@@ -109,6 +110,7 @@ public class AvaliacaoActivity extends AppCompatActivity {
                 ValueAnimator valueAnimator;
                 iv = (ImageView) view.findViewById(R.id.a_imageView);
                 tvDesc = (TextView) view.findViewById(R.id.a_tdescricao);
+                ImageButton star = (ImageButton) view.findViewById(R.id.a_favorito);
                 if (originalHeight == 0) {
                     originalHeight = view.getHeight();
                 }
@@ -152,6 +154,7 @@ public class AvaliacaoActivity extends AppCompatActivity {
                     }
                 });
                 valueAnimator.start();
+
             }
 
             @Override

@@ -29,4 +29,22 @@ public class AvaliacaoDAO extends BaseDAO{
 		
 		return avaliacao;
 	}
+	
+	public Avaliacao setAvaliacao(Avaliacao avaliacao){
+		em.getTransaction().begin();
+		if(avaliacao.getCodigo() != null){
+			em.merge(avaliacao);
+			em.flush();
+			em.getTransaction().commit();
+			
+		}else{
+			em.persist(avaliacao);
+			em.flush();
+			em.getTransaction().commit();
+			em.refresh(avaliacao);
+		}
+		
+		
+		return avaliacao;
+	}
 }	

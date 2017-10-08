@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.wsfood.categoria.Categoria;
@@ -35,6 +36,11 @@ public class Prato {
 	@ManyToOne
 	@JoinColumn(name="codigo_restaurante")
 	private Restaurante restaurante;
+	
+	@Transient
+	private double media;
+	@Transient
+	private int cod_avaliacao;
 	
 	public Integer getId() {
 		return id;
@@ -71,6 +77,18 @@ public class Prato {
 	}
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
+	}
+	public double getMedia() {
+		return media;
+	}
+	public void setMedia(double media) {
+		this.media = media;
+	}
+	public int getCod_avaliacao() {
+		return cod_avaliacao;
+	}
+	public void setCod_avaliacao(int cod_avaliacao) {
+		this.cod_avaliacao = cod_avaliacao;
 	}
 	
 	

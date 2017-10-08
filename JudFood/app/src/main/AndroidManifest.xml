@@ -29,7 +29,10 @@
         <activity android:name=".view.cadastro.CadastroActivity" />
         <activity android:name=".view.cadastro.CadastroSucessoActivity" />
         <activity android:name=".view.avaliacao.AvaliacaoActivity" />
-        <activity android:name=".view.favorito.FavoritoActivity"></activity>
+        <activity android:name=".view.favorito.FavoritoActivity" />
+        <activity android:name=".view.restaurante.RestauranteActivity" />
+        <activity android:name=".view.promocao.PromocaoActivity" />
+        <activity android:name=".view.prato.PratoIntegraActivity"></activity>
     </application>
 
 </manifest>

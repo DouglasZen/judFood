@@ -19,10 +19,10 @@ import br.com.wsfood.promocao.PromocaoDAO;
 @Path("/promocao")
 public class PromocaoResource {
 	@GET
-	@Path("/list/{codRestaurante}")
+	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response listPromocoes(@PathParam("codRestaurante") int codRestaurante){
-		List<Promocao> promocoes = new PromocaoDAO().promocoes(codRestaurante);
+	public Response listPromocoes(){
+		List<Promocao> promocoes = new PromocaoDAO().promocoes();
 		if(promocoes != null){
 			GenericEntity<List<Promocao>> result = new GenericEntity<List<Promocao>>(promocoes){};
 			return Response.ok().entity(result).build();

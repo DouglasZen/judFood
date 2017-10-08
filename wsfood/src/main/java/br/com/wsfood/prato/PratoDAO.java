@@ -12,6 +12,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import br.com.wsfood.avaliacao.Avaliacao;
 import br.com.wsfood.base.BaseDAO;
 
 
@@ -33,8 +34,33 @@ public class PratoDAO extends BaseDAO{
 		return pratos;
 	}
 	
-	public Prato getPrato(int id){
+	/*public Prato getPrato(int id){
 		Prato prato = (Prato) em.find(Prato.class, id);
+		return prato;
+	}*/
+	
+	public Prato getPrato(int codigo, int codigo_pessoa){
+		Prato prato = new Prato();
+		Query query = em.createQuery("select p,"
+								   + "(select a "
+								   + " from Avaliacao a "
+								   + " where a.prato.id = p.id "
+								   + " and a.pessoa.codigo = :codigo_pessoa)"
+								   + "from Prato p "
+								   + "where p.id = :codigo");
+		query.setParameter("codigo_pessoa", codigo_pessoa);
+		query.setParameter("codigo", codigo);
+		List<Object[]> results = query.getResultList();
+		for(Object[] result : results){
+			prato = (Prato) result[0];
+			if(result[1] != null){
+				Avaliacao a = new Avaliacao();
+				a = (Avaliacao) result[1];
+				prato.setMedia(a.getNota());
+				prato.setCod_avaliacao(a.getCodigo());
+			}
+		}
+		
 		return prato;
 	}
 

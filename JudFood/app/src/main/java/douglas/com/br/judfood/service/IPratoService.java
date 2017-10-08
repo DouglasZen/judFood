@@ -14,6 +14,9 @@ public interface IPratoService {
     @GET("prato/ranking/{codCategoria}")
     Call<Pratos> listPratos(@Path("codCategoria") int codCategoria);
 
-    @GET("prato/{id}")
-    Call<Prato> getPrato(@Path("id") int id);
+    @GET("prato/{id}/{pessoa}")
+    Call<Prato> getPrato(@Path("id") int id, @Path("pessoa") int pessoa);
+
+    @GET("prato/restaurante/{codRestaurante}")
+    Call<Pratos> listPratosRestaurante(@Path("codRestaurante") int codRestaurante);
 }

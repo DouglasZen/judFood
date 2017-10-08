@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/tvRestaurante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="Restaurantes"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listaRestaurantes"
+        android:layout_below="@+id/tvRestaurante"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        />
+
+
+
+    <fragment
+        android:id="@+id/menuOpcoes"
+        class="douglas.com.br.judfood.view.Menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        >
+    </fragment>
+
+
+
+</RelativeLayout>

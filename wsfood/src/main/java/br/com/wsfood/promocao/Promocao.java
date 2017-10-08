@@ -33,9 +33,12 @@ public class Promocao {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dataFim")
 	private Date datafim;
+	@Column(name="imagem")
+	private String imagem;
 	@ManyToOne
 	@JoinColumn(name="codigo_restaurante")
 	private Restaurante restaurante;
+	
 	
 	public Integer getCodigo() {
 		return codigo;
@@ -61,12 +64,19 @@ public class Promocao {
 	public void setDatafim(Date datafim) {
 		this.datafim = datafim;
 	}
+	public String getImagem() {
+		return imagem;
+	}
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
 	public Restaurante getRestaurante() {
 		return restaurante;
 	}
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
 	}
+	
 	
 	
 }

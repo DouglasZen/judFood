@@ -50,7 +50,7 @@ public class AvaliacaoAdapter extends RecyclerView.Adapter{
         byte[] image = Base64.decode(prato.getImagem(), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
 
-        //holder.descricao.setText(prato.getDescricao());
+        holder.descricao.setText(prato.getDescricao());
         holder.imagem.setImageBitmap(bitmap);
         holder.nome.setText(prato.getNome());
         holder.codigoPrato.setText(String.valueOf(prato.getId()));

@@ -43,12 +43,12 @@ public class PratoResource {
 	}
 	
 	@GET
-	@Path("{id}")
+	@Path("{id}/{pessoa}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getPrato(@PathParam("id") String id){
+	public Response getPrato(@PathParam("id") String id, @PathParam("pessoa") String pessoa){
 		Prato prato = null;
 		try{
-			prato = new PratoDAO().getPrato(Integer.parseInt(id));
+			prato = new PratoDAO().getPrato(Integer.parseInt(id), Integer.parseInt(pessoa));
 			if(prato != null){
 				return Response.ok().entity(prato).build();
 			}

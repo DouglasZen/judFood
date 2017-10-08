@@ -40,7 +40,7 @@
                 android:layout_below="@+id/tnome"
                 android:layout_width="match_parent"
                 android:layout_height="200px"
-                android:visibility="invisible"/>
+                />
             <TextView
                 android:id="@+id/tdescricao"
                 android:layout_below="@+id/imageView"

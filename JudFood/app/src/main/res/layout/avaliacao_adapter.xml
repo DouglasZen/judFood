@@ -46,7 +46,6 @@
             android:layout_below="@+id/a_imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus justo at interdum ultrices. Suspendisse eget justo consequat erat viverra tempor. Nulla sed gravida ante, non bibendum enim. Integer faucibus eu mi porta iaculis. Proin congue, ligula quis dignissim tincidunt, arcu lorem ultricies nibh, tempus ornare mauris est sit amet dolor. In euismod convallis erat vel cursus. Vivamus ornare nisi bibendum odio auctor, vel semper est tempor. Mauris id turpis scelerisque justo laoreet ornare. Nulla arcu augue, semper et velit sodales, egestas vulputate ipsum. Pellentesque aliquet lacus vitae diam cursus ultrices."
             android:visibility="invisible"
             />
 
@@ -54,12 +53,11 @@
             android:id="@+id/a_favorito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="52dp"
+
             android:background="@color/cardview_light_background"
             app:srcCompat="@android:drawable/star_off"
-            android:onClick="favoritar"/>
+            android:onClick="favoritar"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

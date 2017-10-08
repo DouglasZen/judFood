@@ -26,7 +26,27 @@
         android:src="@mipmap/ic_logout">
     </ImageButton>
 
+    <ImageButton
+        android:id="@+id/btRestaurante"
+        android:background="@drawable/oval"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:src="@mipmap/ic_restaurant">
+    </ImageButton>
 
+    <ImageButton
+        android:id="@+id/btPromocao"
+        android:background="@drawable/oval"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:src="@mipmap/ic_promocao">
+    </ImageButton>
 
     <ImageButton
         android:id="@+id/btMenu"

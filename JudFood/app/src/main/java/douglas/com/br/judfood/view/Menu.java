@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 import com.facebook.AccessToken;
@@ -20,6 +21,8 @@ import douglas.com.br.judfood.R;
 import douglas.com.br.judfood.util.Prefs;
 import douglas.com.br.judfood.view.favorito.FavoritoActivity;
 import douglas.com.br.judfood.view.login.LoginActivity;
+import douglas.com.br.judfood.view.promocao.PromocaoActivity;
+import douglas.com.br.judfood.view.restaurante.RestauranteActivity;
 
 
 public class Menu extends Fragment {
@@ -50,6 +53,18 @@ public class Menu extends Fragment {
                 favoritos(v);
             }
         });
+
+        view.findViewById(R.id.btRestaurante).setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                restaurante();
+            }
+        });
+
+        view.findViewById(R.id.btPromocao).setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                promocao();
+            }
+        });
         return view;
     }
 
@@ -57,6 +72,8 @@ public class Menu extends Fragment {
         ImageButton bmenu = (ImageButton) view.findViewById(R.id.btMenu);
         ImageButton bsair = (ImageButton) view.findViewById(R.id.btSair);
         ImageButton bfav = (ImageButton) view.findViewById(R.id.btFavorito);
+        ImageButton brest = (ImageButton) view.findViewById(R.id.btRestaurante);
+        ImageButton bpromo = (ImageButton) view.findViewById(R.id.btPromocao);
         AnimatorSet lista = new AnimatorSet();
         ObjectAnimator obj;
 
@@ -65,14 +82,22 @@ public class Menu extends Fragment {
             lista.playSequentially(obj);
             obj = ObjectAnimator.ofFloat(bfav, "x", bfav.getX(), bmenu.getX() + (bmenu.getWidth()));
             lista.playSequentially(obj);
-            obj = ObjectAnimator.ofFloat(bsair, "x", bsair.getX(), bmenu.getX() + (bmenu.getWidth() + bfav.getWidth()));
+            obj = ObjectAnimator.ofFloat(brest, "x", brest.getX(), bmenu.getX() + (bmenu.getWidth() + bfav.getWidth()));
+            lista.playSequentially(obj);
+            obj = ObjectAnimator.ofFloat(bpromo, "x", bpromo.getX(), bmenu.getX() + (bmenu.getWidth() + bfav.getWidth() + bpromo.getWidth()));
+            lista.playSequentially(obj);
+            obj = ObjectAnimator.ofFloat(bsair, "x", bsair.getX(), bmenu.getX() + (bmenu.getWidth() + bfav.getWidth()) + brest.getWidth() + bpromo.getWidth());
             lista.playSequentially(obj);
 
             abrir = true;
         }else{
             obj = ObjectAnimator.ofFloat(bfav, "x", bfav.getX(), bmenu.getX() );
             lista.playSequentially(obj);
-            obj = ObjectAnimator.ofFloat(bsair, "x", bsair.getX(), bmenu.getX() - (bmenu.getWidth() - bfav.getWidth()) );
+            obj = ObjectAnimator.ofFloat(brest, "x", brest.getX(), bmenu.getX() - (bmenu.getWidth() - bfav.getWidth()));
+            lista.playSequentially(obj);
+            obj = ObjectAnimator.ofFloat(bpromo, "x", bpromo.getX(), bmenu.getX() - (bmenu.getWidth() - bfav.getWidth()));
+            lista.playSequentially(obj);
+            obj = ObjectAnimator.ofFloat(bsair, "x", bsair.getX(), bmenu.getX() - (bmenu.getWidth() - bfav.getWidth()));
             lista.playSequentially(obj);
             obj = ObjectAnimator.ofFloat(bmenu, "rotation", 0, 0);
             lista.playSequentially(obj);
@@ -104,4 +129,15 @@ public class Menu extends Fragment {
         startActivity(intent);
     }
 
+    public void restaurante(){
+        Intent intent = new Intent(getActivity(), RestauranteActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public void promocao(){
+        Intent intent = new Intent(getActivity(), PromocaoActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }
