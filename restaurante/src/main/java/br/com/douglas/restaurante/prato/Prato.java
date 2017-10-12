@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.douglas.restaurante.categoria.Categoria;
+import br.com.douglas.restaurante.restaurante.Restaurante;
 
 @Entity
 @Table(name = "prato")
@@ -31,7 +32,9 @@ public class Prato {
 	
 	@Column(name="imagem")
 	private String imagem;
-	
+	@ManyToOne
+	@JoinColumn(name="codigo_restaurante")
+	private Restaurante restaurante;
 	@Column(name="nome")
 	private String nome;
 	
@@ -79,6 +82,14 @@ public class Prato {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Restaurante getRestaurante() {
+		return restaurante;
+	}
+
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
 	}
 	
 	

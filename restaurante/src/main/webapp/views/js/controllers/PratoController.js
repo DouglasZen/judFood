@@ -10,26 +10,42 @@
 		$scope.categoria = [];
 		$scope.imagem;
 		listCategoria();
-		
+		init();
 		
 		$scope.setImage = function(imagem){
 			$scope.imagem = imagem[0];
-			console.log($scope.imagem);
+			$scope.prato.imagem = '';
+			$("#imagemSalva").attr("src", '');
 		}
 		
-		$scope.salvar = function(){
+		$scope.salvar = function(prato){
 			var params = new FormData();
-			params.append('prato', angular.toJson($scope.prato));
-			params.append('imagem', $scope.imagem);
+			
+			if($("#codigoprato").val() != ''){
+				prato.id = $("#codigoprato").val();
+				params.append('prato', angular.toJson(prato));
+				if(prato.imagem == ''){
+					params.append('imagem', $scope.imagem);
+				}
+				console.log(prato.imagem);
+				
+			}else{
+				params.append('prato', angular.toJson($scope.prato));
+				params.append('imagem', $scope.imagem);
+			}
+			
+			
 			$http({
 				method: 'POST',
-				url: './cadastro/salvar',
+				url: '/restaurante/prato/cadastro/salvar',
 				headers: {'Content-Type': undefined},
 				data: params,
 				transformRequest: function(data, headersGetterFunction){
 					return data;
 				}
 			}).success(function(data){
+				$("#codigoprato").val(data.id);
+				$scope.prato.imagem = data.imagem;
 				
 			}).error(function(){
 				
@@ -42,6 +58,15 @@
 			})
 		}
 		
+		function init(){
+			var codigo = $("#codigoprato").val();
+			if(codigo != ''){
+				$http.get('/restaurante/prato/getPrato/' + codigo).success(function(data){
+					$scope.prato = data;
+					
+				})
+			}
+		}
 		
 		
 	}

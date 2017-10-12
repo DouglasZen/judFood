@@ -16,6 +16,11 @@
  	
  	<mvc:annotation-driven/>
  	
+ 	<mvc:interceptors>
+	  <bean class=
+	    "br.com.douglas.restaurante.common.AutorizadorInterceptor" />
+	</mvc:interceptors>
+ 	
  	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
 	</bean>
@@ -76,6 +81,8 @@
 				<value>br.com.douglas.restaurante.restaurante.Restaurante</value>
 				<value>br.com.douglas.restaurante.prato.Prato</value>
 				<value>br.com.douglas.restaurante.categoria.Categoria</value>
+				<value>br.com.douglas.restaurante.usuario.Usuario</value>
+				<value>br.com.douglas.restaurante.promocao.Promocao</value>
 			</list>
 		</property>
 	

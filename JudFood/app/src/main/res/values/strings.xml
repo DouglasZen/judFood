@@ -5,4 +5,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="responder"><u>Responder</u></string>
+    <string name="vermais"><u>Ver Todos</u></string>
+    <string name="vermenos"><u>Ver Menos</u></string>
 </resources>

@@ -18,5 +18,23 @@
 	<definition name="cadastroCategoria" extends="main">
 		<put-attribute name="body" value="/views/categoria/cadastro.jsp"/>
 	</definition>
+	<definition name="login" extends="main">
+		<put-attribute name="body" value="/views/login/login.jsp"/>
+	</definition>
+	<definition name="cadastroUsuario" extends="main">
+		<put-attribute name="body" value="/views/login/cadastro.jsp"/>
+	</definition>
+	<definition name="home" extends="main">
+		<put-attribute name="body" value="/views/home/home.jsp"/>
+	</definition>
+	<definition name="consultaPrato" extends="main">
+		<put-attribute name="body" value="/views/prato/consulta.jsp"/>
+	</definition>
+	<definition name="consultaPromocao" extends="main">
+		<put-attribute name="body" value="/views/promocao/consulta.jsp"/>
+	</definition>
+	<definition name="cadastroPromocao" extends="main">
+		<put-attribute name="body" value="/views/promocao/cadastro.jsp"/>
+	</definition>
 
 </tiles-definitions>

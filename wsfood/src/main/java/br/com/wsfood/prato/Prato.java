@@ -41,6 +41,8 @@ public class Prato {
 	private double media;
 	@Transient
 	private int cod_avaliacao;
+	@Transient
+	private int total_comentario;
 	
 	public Integer getId() {
 		return id;
@@ -89,6 +91,12 @@ public class Prato {
 	}
 	public void setCod_avaliacao(int cod_avaliacao) {
 		this.cod_avaliacao = cod_avaliacao;
+	}
+	public int getTotal_comentario() {
+		return total_comentario;
+	}
+	public void setTotal_comentario(int total_comentario) {
+		this.total_comentario = total_comentario;
 	}
 	
 	

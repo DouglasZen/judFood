@@ -53,6 +53,7 @@
             android:layout_height="wrap_content"
             />
         <RelativeLayout
+            android:id="@+id/integra_estrelas"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_below="@+id/integra_descricao"
@@ -113,6 +114,93 @@
                 android:layout_alignParentBottom="true"
                 android:layout_toEndOf="@+id/integra_star_4"
                 android:onClick="botaoEstrela"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/integra_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/integra_estrelas"
+            android:layout_centerHorizontal="true"
+            >
+            <ImageButton
+                android:id="@+id/integra_image_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:scaleType="matrix"
+                app:srcCompat="@mipmap/ic_comment"
+                android:layout_alignParentBottom="true"
+                android:onClick="abrirComentario"
+                />
+            <TextView
+                android:id="@+id/integra_qtd_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/integra_image_comment"
+                android:onClick="abrirComentario"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/integra_lista_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/integra_comment"
+            >
+            <EditText
+                android:id="@+id/integra_text_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                />
+            <ImageButton
+                android:id="@+id/integra_send_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:srcCompat="@mipmap/ic_send"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:visibility="invisible"
+                android:onClick="comentar"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/integra_layout_lista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/integra_lista_comment"
+            >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/integra_lista_comment_save"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                >
+
+            </android.support.v7.widget.RecyclerView>>
+            <TextView
+                android:id="@+id/integra_ver_todos"
+                android:layout_below="@+id/integra_lista_comment_save"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/vermais"
+                android:layout_centerHorizontal="true"
+                android:onClick="vermais"
+                android:visibility="invisible"
+                />
+            <TextView
+                android:id="@+id/integra_ver_menos"
+                android:layout_below="@+id/integra_lista_comment_save"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/vermenos"
+                android:layout_centerHorizontal="true"
+                android:onClick="vermenos"
+                android:visibility="invisible"
                 />
         </RelativeLayout>
 

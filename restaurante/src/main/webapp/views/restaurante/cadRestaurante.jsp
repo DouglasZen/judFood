@@ -4,6 +4,8 @@
 
 <script type="text/javascript" src="/restaurante/views/js/controllers/RestauranteController.js" charset="UTF-8"></script>
 <div ng-controller="RestauranteController">
+	
+	<input type="hidden" ng-model="restaurante.codigo" id="codigoRestaurante" value="${requestScope.codigo}"/>
 	<label>Nome</label>
 	<input type="text" ng-model="restaurante.nome" value="${restaurante.nome}" id="nome">
 	<button type="button" class="btn btn-success" id="btSalvar">Salvar</button>

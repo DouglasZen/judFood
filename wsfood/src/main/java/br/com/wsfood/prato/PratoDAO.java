@@ -45,7 +45,10 @@ public class PratoDAO extends BaseDAO{
 								   + "(select a "
 								   + " from Avaliacao a "
 								   + " where a.prato.id = p.id "
-								   + " and a.pessoa.codigo = :codigo_pessoa)"
+								   + " and a.pessoa.codigo = :codigo_pessoa),"
+								   + " (select count(c.codigo)"
+								   + "  from Comentario c"
+								   + "  where c.prato.id = :codigo)"
 								   + "from Prato p "
 								   + "where p.id = :codigo");
 		query.setParameter("codigo_pessoa", codigo_pessoa);
@@ -59,6 +62,7 @@ public class PratoDAO extends BaseDAO{
 				prato.setMedia(a.getNota());
 				prato.setCod_avaliacao(a.getCodigo());
 			}
+			prato.setTotal_comentario(Integer.parseInt(result[2].toString()));
 		}
 		
 		return prato;

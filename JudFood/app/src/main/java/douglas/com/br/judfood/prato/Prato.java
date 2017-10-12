@@ -18,6 +18,7 @@ public class Prato implements Serializable {
     private Restaurante restaurante;
     private double media;
     private int cod_avaliacao;
+    private int total_comentario;
 
     public Prato(Integer id, String descricao, Categoria categoria, String imagem) {
         this.id = id;
@@ -96,5 +97,13 @@ public class Prato implements Serializable {
 
     public void setCod_avaliacao(int cod_avaliacao) {
         this.cod_avaliacao = cod_avaliacao;
+    }
+
+    public int getTotal_comentario() {
+        return total_comentario;
+    }
+
+    public void setTotal_comentario(int total_comentario) {
+        this.total_comentario = total_comentario;
     }
 }

@@ -1,5 +1,7 @@
 package br.com.douglas.restaurante.prato;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,5 +17,11 @@ public class PratoService {
 		dao.addPrato(prato);
 	}
 	
+	public List<Prato> listarPrato(int codigoRestaurante){
+		return dao.listarPrato(codigoRestaurante);
+	}
 	
+	public Prato getPrato(int codigo){
+		return dao.getPrato(codigo);
+	}
 }

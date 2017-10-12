@@ -7,4 +7,5 @@
     <color name="fonteCard">#FFFFFF</color>
     <color name="background">#303F9F</color>
     <color name="cardbackground">#FFA500</color>
+    <color name="textoResposta">#0000FF</color>
 </resources>
