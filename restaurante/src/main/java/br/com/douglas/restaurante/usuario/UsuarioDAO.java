@@ -35,8 +35,12 @@ public class UsuarioDAO implements IUsuario{
 	}
 
 	@Override
-	public Usuario getUsuario() {
-		return null;
+	public Usuario getUsuario(int codigo) {
+		String q = "select u from Usuario u where u.codigo = :codigo";
+		Query query = session.getCurrentSession().createQuery(q);
+		query.setParameter("codigo", codigo);
+		Usuario usuario = (Usuario) query.getSingleResult();
+		return usuario;
 	}
 
 	@Override

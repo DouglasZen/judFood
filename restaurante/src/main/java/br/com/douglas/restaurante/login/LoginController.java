@@ -32,6 +32,12 @@ public class LoginController {
 		return "cadastroUsuario";
 	}
 	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request, HttpServletResponse response){
+		request.getSession().invalidate();
+		return "login";
+	}
+	
 	@RequestMapping(value="/logar", 
 			method = RequestMethod.POST)
 	@ResponseBody
@@ -47,7 +53,12 @@ public class LoginController {
 	@RequestMapping(value="/salvar", 
 			method = RequestMethod.POST)
 	@ResponseBody
-	public void setUsuario(@RequestBody Usuario usuario){
+	public boolean setUsuario(@RequestBody Usuario usuario, HttpServletRequest request, HttpServletResponse response){
 		usuarioService.setUsuario(usuario);
+		request.getSession().setAttribute("usuarioLogado", usuario);
+		if(usuario.getCodigo() > 0){
+			return true;
+		}
+		return false;
 	}
 }

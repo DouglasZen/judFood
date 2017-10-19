@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.com.douglas.restaurante.restaurante.Restaurante;
 
@@ -24,14 +25,19 @@ public class Promocao {
 	private String descricao;
 	@Column(name="dataIni")
 	private Date data_inicio;
+	@Transient
+	private String data_inicio_str;
 	@Column(name="dataFim")
 	private Date data_fim;
+	@Transient
+	private String data_fim_str;
 	@ManyToOne
 	@JoinColumn(name="codigo_restaurante")
 	private Restaurante restaurante;
 	@Column(name="imagem")
 	private String imagem;
-	
+	@Column(name="titulo")
+	private String titulo;
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -67,6 +73,24 @@ public class Promocao {
 	}
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+	public String getTitulo() {
+		return titulo;
+	}
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+	public String getData_inicio_str() {
+		return data_inicio_str;
+	}
+	public void setData_inicio_str(String data_inicio_str) {
+		this.data_inicio_str = data_inicio_str;
+	}
+	public String getData_fim_str() {
+		return data_fim_str;
+	}
+	public void setData_fim_str(String data_fim_str) {
+		this.data_fim_str = data_fim_str;
 	}
 	
 	

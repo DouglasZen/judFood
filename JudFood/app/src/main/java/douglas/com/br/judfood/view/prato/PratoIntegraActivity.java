@@ -318,7 +318,7 @@ public class PratoIntegraActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Comentarios> call, Throwable t) {
-
+                Log.e("ERRO_COMENTARIO" , t.getMessage());
             }
         });
     }

@@ -45,6 +45,11 @@ public class Prato {
 		this.categoria = categoria;
 	}
 	
+	public Prato(int id){
+		super();
+		this.id = id;
+	}
+	
 	public Prato(){
 		super();
 	}

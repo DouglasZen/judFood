@@ -1,6 +1,9 @@
 package douglas.com.br.judfood.comentario;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import douglas.com.br.judfood.pessoa.Pessoa;
@@ -17,6 +20,7 @@ public class Comentario implements Serializable{
     private Prato prato;
     private Pessoa pessoa;
     private Restaurante restaurante;
+    @SerializedName(value="respostas")
     private List<Comentario> respostas;
     private String codComentario;
 

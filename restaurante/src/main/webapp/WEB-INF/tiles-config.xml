@@ -6,6 +6,10 @@
 		<put-attribute name="titulo" value="Restaurante"/>
 		<put-attribute name="body" value="/views/base/blank.jsp"/>
 	</definition>
+	<definition name="main_login" template="/views/base/base_login.jsp">
+		<put-attribute name="titulo" value="Restaurante"/>
+		<put-attribute name="body" value="/views/base/blank.jsp"/>
+	</definition>
 	<definition name="cadastroPrato" extends="main" >
 		<put-attribute name="body" value="/views/prato/cadastro.jsp"/>
 	</definition>
@@ -18,7 +22,7 @@
 	<definition name="cadastroCategoria" extends="main">
 		<put-attribute name="body" value="/views/categoria/cadastro.jsp"/>
 	</definition>
-	<definition name="login" extends="main">
+	<definition name="login" extends="main_login">
 		<put-attribute name="body" value="/views/login/login.jsp"/>
 	</definition>
 	<definition name="cadastroUsuario" extends="main">

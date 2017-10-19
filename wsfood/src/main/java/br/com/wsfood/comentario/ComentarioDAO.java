@@ -1,10 +1,12 @@
 package br.com.wsfood.comentario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import br.com.wsfood.base.BaseDAO;
+import br.com.wsfood.pessoa.Pessoa;
 
 public class ComentarioDAO extends BaseDAO{
 	
@@ -25,25 +27,45 @@ public class ComentarioDAO extends BaseDAO{
 	}
 	
 	public List<Comentario> listaComentarioPrato(int codigoPrato, int max){
-		Query query = em.createQuery("select c"
+		Query query = em.createQuery("select c.codigo, c.comentario, c.pessoa"
 				                   + " from Comentario c"
 				                   + " where c.prato.id = :codigo"
 				                   + " and c.codComentario IS NULL"
-								   + " order by c.codigo desc", Comentario.class);
+								   + " order by c.codigo desc");
 		query.setParameter("codigo", codigoPrato);
 		if(max > 0){
 			query.setMaxResults(max);
 		}
-		List<Comentario> comentarios = query.getResultList();
+		List<Comentario> comentarios = new ArrayList<Comentario>();
+		List<Object[]> results = query.getResultList();
+		for(Object[] result : results){
+			Comentario comentario = new Comentario();
+			comentario.setCodigo(Integer.parseInt(result[0].toString()));
+			comentario.setComentario(result[1].toString());
+			Pessoa pessoa = new Pessoa();
+			pessoa = (Pessoa) result[2];
+			comentario.setPessoa(pessoa);
+			comentarios.add(comentario);
+		}
+		
+		return comentarios;
+	}
+	
+	public Comentario getComentario(int codigoComentario){
+		Query query = em.createQuery("select c"
+				   				   + " from Comentario c"
+				                   + " where c.codigo = :codigo");
+		query.setParameter("codigo", codigoComentario);
+		Comentario comentarios = (Comentario) query.getSingleResult();
 		return comentarios;
 	}
 	
 	public Comentario listaRespostaComentario(int codigoComentario){
 		Query query = em.createQuery("select c"
 								   + " from Comentario c"
-								   + " where c.codigo = :codigo", Comentario.class);
+								   + " where c.codigo = :codigo");
 		query.setParameter("codigo", codigoComentario);
-		Comentario comentarios = (Comentario) query.getResultList().get(0);
+		Comentario comentarios = (Comentario) query.getSingleResult();
 		return comentarios;
 	}
 }

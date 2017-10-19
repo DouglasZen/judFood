@@ -83,6 +83,8 @@
 				<value>br.com.douglas.restaurante.categoria.Categoria</value>
 				<value>br.com.douglas.restaurante.usuario.Usuario</value>
 				<value>br.com.douglas.restaurante.promocao.Promocao</value>
+				<value>br.com.douglas.restaurante.comentario.Comentario</value>
+				<value>br.com.douglas.restaurante.pessoa.Pessoa</value>
 			</list>
 		</property>
 	

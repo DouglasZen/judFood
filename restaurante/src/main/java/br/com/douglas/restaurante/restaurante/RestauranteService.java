@@ -18,5 +18,8 @@ public class RestauranteService {
 		 
 	 }
 	 
+	 public Restaurante getRestaurante(int codigo){
+		 return dao.getRestaurante(codigo);
+	 }
 	 
 }

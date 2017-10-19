@@ -10,7 +10,7 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object controller) throws Exception{
 		String uri = request.getRequestURI();
-		if(uri.contains("login") || uri.contains("views")){
+		if(uri.contains("login") || uri.contains("views") || uri.contains("favicon")){
 			return true;
 		}
 		

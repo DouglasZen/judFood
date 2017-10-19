@@ -7,7 +7,7 @@
 	
 	function ConsultaPromocaoController($scope, $http, $window){
 		$scope.promocoes = [];
-		init();
+		//init();
 		
 		$scope.editar = function(codigo){
 			$window.location.href = '/restaurante/promocao/editar/' + codigo;

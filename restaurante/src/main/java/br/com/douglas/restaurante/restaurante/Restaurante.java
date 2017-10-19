@@ -17,9 +17,11 @@ public class Restaurante{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="codigo")
 	private Integer codigo;
-	
 	@Column(name="nome")
 	private String nome;
+	@Column(name="endereco")
+	private String endereco;
+	
 
 	public Integer getCodigo() {
 		return codigo;
@@ -35,6 +37,14 @@ public class Restaurante{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 	
 	

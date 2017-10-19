@@ -1,5 +1,6 @@
 package br.com.douglas.restaurante.promocao;
 
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import br.com.douglas.restaurante.usuario.Usuario;
 @Controller
 @RequestMapping("promocao")
 public class PromocaoController {
+	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 	
 	@Autowired
 	private PromocaoService service;
@@ -34,13 +36,16 @@ public class PromocaoController {
 		return "cadastroPromocao";
 	}
 	@RequestMapping(value = "/consulta", method = RequestMethod.GET)
-	public String consulta(){
+	public String consulta(HttpServletRequest request, HttpServletResponse response){
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+		List<Promocao> promocoes = service.listPromocao(usuario.getRestaurante().getCodigo());
+		request.setAttribute("promocoes", promocoes);
 		return "consultaPromocao";
 	}
 	
 	@RequestMapping(value = "/editar/{codigo}", method = RequestMethod.GET)
 	public ModelAndView editar(@PathVariable("codigo") int codigo, Model model){
-		model.addAttribute("nome", codigo);
+		model.addAttribute("codigo", codigo);
 		return new ModelAndView("cadastroPromocao");
 	}
 	
@@ -56,6 +61,8 @@ public class PromocaoController {
 	public Promocao savePromocao(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception{
 		Promocao promocao = new Promocao();
 		promocao = new Gson().fromJson(request.getParameter("promocao"), Promocao.class);
+		promocao.setData_inicio(formato.parse(promocao.getData_inicio_str()));
+		promocao.setData_fim(formato.parse(promocao.getData_fim_str()));
 		if(promocao.getCodigo() != null){
 			MultipartFile file = request.getFile("imagem");
 			if(file != null){
@@ -78,7 +85,13 @@ public class PromocaoController {
 	
 	@RequestMapping(value = "/getPromocao/{codigo}", method = RequestMethod.GET)
 	public @ResponseBody Promocao promocao(@PathVariable("codigo") int codigo){
-		return service.getPromocao(codigo);
+		Promocao promocao = new Promocao();
+		promocao = service.getPromocao(codigo);
+		promocao.setData_inicio_str(formato.format(promocao.getData_inicio()));
+		promocao.setData_fim_str(formato.format(promocao.getData_fim()));
+		promocao.setData_inicio(null);
+		promocao.setData_fim(null);
+		return promocao;
 	}
 	
 }

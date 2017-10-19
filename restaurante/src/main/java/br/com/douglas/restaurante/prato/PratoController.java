@@ -39,13 +39,16 @@ public class PratoController {
 	}
 	
 	@RequestMapping(value = "/consulta", method = RequestMethod.GET)
-	public String consulta() {
+	public String consulta(HttpServletRequest request, HttpServletResponse response) {
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+		List<Prato> pratos = service.listarPrato(usuario.getRestaurante().getCodigo());
+		request.setAttribute("pratos", pratos);
 		return "consultaPrato";
 	}
 	
 	@RequestMapping(value = "/editar/{codigo}", method = RequestMethod.GET)
 	public ModelAndView editar(@PathVariable("codigo") int codigo, Model model){
-		model.addAttribute("nome" , codigo);
+		model.addAttribute("codigo" , codigo);
 		return new ModelAndView("cadastroPrato");
 	}
 	

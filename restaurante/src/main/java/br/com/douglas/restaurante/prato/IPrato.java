@@ -6,4 +6,5 @@ public interface IPrato {
 	public Prato addPrato(Prato prato);
 	public List<Prato> listarPrato(int codigoRestaurante);
 	public Prato getPrato(int codigo);
+	public double getMedia(int codigo);
 }

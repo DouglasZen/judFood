@@ -1,11 +1,13 @@
 package br.com.wsfood.comentario;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +43,7 @@ public class Comentario implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="codigo_prato")
 	private Prato prato;
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name="codigo_comentario")
 	private List<Comentario> respostas;
 	@Column(name="codigo_comentario")
@@ -77,6 +79,7 @@ public class Comentario implements Serializable{
 	public void setPrato(Prato prato) {
 		this.prato = prato;
 	}
+	
 	public List<Comentario> getRespostas() {
 		return respostas;
 	}

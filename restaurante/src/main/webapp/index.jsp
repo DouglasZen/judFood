@@ -3,13 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 
 <c:redirect url="/login/"/>
-<tiles:insertDefinition name="main">
 
-    <tiles:putAttribute name="body">
-         <p>teste index</p>
-    </tiles:putAttribute>
-
-</tiles:insertDefinition>
 
 	
 	

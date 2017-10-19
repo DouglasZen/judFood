@@ -7,28 +7,56 @@
 	
 	function RestauranteController($scope, $http, $window){
 		$scope.restaurante = {};
+		$scope.usuarios = [];
+		$scope.editar = false;
 		init();
 		
 		function init(){
-			listarUsuarios($("#codigoRestaurante").val());
+			var codigo = $("#codigoRestaurante").val();
+			if(codigo != ''){
+				getRestaurante(codigo);
+				listarUsuarios(codigo);
+			}
+			
+			
 		}
 		
-		$("#btSalvar").click(function(e){
-			console.log($scope.restaurante)
-			save($scope.restaurante);
-		})
-		
-		
-		function save(restaurante){
-			$http.post('./cadastro/salvar', restaurante).success(function(){
-				$scope.restaurante = {};
+		$scope.salvar = function(restaurante){
+			if($("#codigoRestaurante").val() != ''){
+				$scope.editar = true;
+				restaurante.codigo = $("#codigoRestaurante").val();
+			}
+			$http.post('/restaurante/restaurante/cadastro/salvar', restaurante).success(function(data){
+				if(data){
+					$("#codigoRestaurante").val(data.codigo)
+					if(data.codigo != '' && $scope.editar){
+						listarUsuarios(data.codigo);
+						$("#modal-mensagem-sucesso").modal();
+					}else if(data.codigo != '' && !$scope.editar){
+						$window.location.href = '/restaurante/home/';						
+					}
+
+				}
 			})
 		}
 		
-		function listaUsuarios(codigo){
+		$scope.editar = function(codigo){
+			$window.location.href = '/restaurante/usuario/editar/' + codigo;
+		}
+		
+		function listarUsuarios(codigo){
 			if(codigo != null && codigo != ''){
-				
+				$http.get('/restaurante/usuario/listausuarios/' + codigo)
+					 .success(function(data){
+						 $scope.usuarios = data;
+					 })
 			}
+		}
+		
+		function getRestaurante(codigo){
+			$http.get('/restaurante/restaurante/getRestaurante/' + codigo).success(function(data){
+				$scope.restaurante = data;
+			})
 		}
 	}
 })();

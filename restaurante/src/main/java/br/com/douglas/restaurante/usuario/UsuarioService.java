@@ -25,4 +25,8 @@ public class UsuarioService {
 	public List<Usuario> listaUsuario(int codigo){
 		return dao.listaUsuario(codigo);
 	}
+	
+	public Usuario getUsuario(int codigo){
+		return dao.getUsuario(codigo);
+	}
 }

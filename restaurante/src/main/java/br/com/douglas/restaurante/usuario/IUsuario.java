@@ -5,6 +5,6 @@ import java.util.List;
 public interface IUsuario {
 	public Usuario setUsuario(Usuario usuario);
 	public Usuario validarLogin(Usuario usuario);
-	public Usuario getUsuario();
+	public Usuario getUsuario(int codigo);
 	public List<Usuario> listaUsuario(int codigo);
 }

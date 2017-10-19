@@ -37,6 +37,13 @@ public class PratoDAO implements IPrato{
 		Prato prato = (Prato) query.getSingleResult();
 		return prato;
 	}
+
+	@Override
+	public double getMedia(int codigo) {
+		
+		return 0;
+	}
+	
 	
 	
 }

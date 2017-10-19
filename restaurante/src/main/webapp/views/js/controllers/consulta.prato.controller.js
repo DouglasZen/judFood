@@ -7,7 +7,7 @@
 	
 	function ConsultaPratoController($scope, $http, $window){
 		$scope.pratos = [];
-		init();
+		//init();
 		
 		$scope.editar = function(codigo){
 			$window.location.href = '/restaurante/prato/editar/' + codigo;
@@ -20,6 +20,7 @@
 		function listarPratos(){
 			$http.get('/restaurante/prato/listarpratos').success(function(data){
 				$scope.pratos = data;
+				
 			})
 		}
 		
