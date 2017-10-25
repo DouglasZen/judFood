@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 
 
 public class BaseDAO {
-	private EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
+	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
 	private EntityManager em = factory.createEntityManager();
 	
 	public EntityManager getEntityManager(){

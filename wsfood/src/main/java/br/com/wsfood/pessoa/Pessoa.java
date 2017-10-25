@@ -1,5 +1,7 @@
 package br.com.wsfood.pessoa;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name="pessoa")
 @XmlRootElement
-public class Pessoa {
+public class Pessoa implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="codigo")

@@ -51,14 +51,28 @@ public class PessoaResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getLogin(Pessoa pessoa){
-		Resultado resultado = new PessoaDAO().login(pessoa.getEmail(), pessoa.getSenha());
-		if(resultado.isResultado()){
-			return Response.ok().entity(resultado).build();
+		pessoa = new PessoaDAO().login(pessoa.getEmail(), pessoa.getSenha());
+		if(pessoa != null){
+			return Response.ok().entity(pessoa).build();
 		}else{
 			return Response.status(Status.NOT_FOUND).build();
 		}
 		
 	}
 	
+	@POST
+	@Path("verificaemail")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response verificaEmail(Pessoa pessoa){
+		try{
+			Resultado resultado = new Resultado();
+			resultado.setResultado(new PessoaDAO().verificarEmail(pessoa.getEmail()));
+			return Response.ok().entity(resultado).build();
+		}catch(Exception e){
+			e.printStackTrace();
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 	
 }

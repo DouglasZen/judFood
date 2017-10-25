@@ -3,6 +3,8 @@ package douglas.com.br.judfood.view.home;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -46,15 +48,26 @@ public class HomeAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         final HomeViewHolder holder = (HomeViewHolder) viewHolder;
         Categoria categoria = categorias.get(position);
-        if(categoria.getImagem() != null) {
+        /*if(categoria.getImagem() != null) {
             byte[] image = Base64.decode(categoria.getImagem(), Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
 
             holder.imagemCategoria.setImageBitmap(bitmap);
 
-        }
+        }*/
         holder.codigo.setText(categoria.getCodigo().toString());
         holder.nome.setText(categoria.getDescricao().toString());
+
+
+        Drawable drawable;
+        if(position % 2 == 0){
+            holder.imagemCategoria.setImageResource(R.drawable.direita);
+            holder.nome.setTextColor(Color.WHITE);
+        }else{
+            holder.imagemCategoria.setImageResource(R.drawable.esquerda);
+            holder.nome.setTextColor(Color.BLACK);
+        }
+
 
         if(onClickListener != null){
             holder.itemView.setOnClickListener(new View.OnClickListener(){

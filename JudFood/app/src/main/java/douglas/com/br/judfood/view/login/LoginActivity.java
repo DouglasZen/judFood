@@ -19,14 +19,18 @@ import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.List;
 
 import douglas.com.br.judfood.R;
+import douglas.com.br.judfood.favorito.Favorito;
 import douglas.com.br.judfood.pessoa.Pessoa;
+import douglas.com.br.judfood.service.IFavoritoService;
 import douglas.com.br.judfood.service.ILoginService;
 import douglas.com.br.judfood.service.IPessoaService;
 import douglas.com.br.judfood.service.ServiceGenerator;
@@ -178,28 +182,51 @@ public class LoginActivity extends AppCompatActivity {
         pessoa.setEmail(email.getText().toString());
 
         ILoginService service = ServiceGenerator.createService(ILoginService.class);
-        final Call<Resultado> call = service.login(pessoa);
-        call.enqueue(new Callback<Resultado>() {
+        final Call<Pessoa> call = service.login(pessoa);
+        call.enqueue(new Callback<Pessoa>() {
             @Override
-            public void onResponse(Call<Resultado> call, Response<Resultado> response) {
+            public void onResponse(Call<Pessoa> call, Response<Pessoa> response) {
                 if(response.isSuccessful()){
-                    Resultado r = response.body();
-                    if(r.isResultado()){
+                    Pessoa pessoa = response.body();
+                    if(pessoa.getCodigo() != null){
                         Log.v("LOGIN", "logou");
                         Prefs.setLogado(LoginActivity.this, "login", true);
-                        Prefs.setCodigoPessoa(LoginActivity.this, "codigoPessoa", r.getCodigoPessoa());
+                        Prefs.setCodigoPessoa(LoginActivity.this, "codigoPessoa", pessoa.getCodigo());
+                        listarFavoritos(pessoa.getCodigo());
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
+                    }else{
+                        Toast.makeText(LoginActivity.this, "Login Incorreto", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<Resultado> call, Throwable t) {
+            public void onFailure(Call<Pessoa> call, Throwable t) {
                 Log.e("ERRO LOGIN", t.getMessage());
             }
         });
+    }
+
+    public void listarFavoritos(int codigo){
+        IFavoritoService service = ServiceGenerator.createService(IFavoritoService.class);
+        final Call<List<Favorito>> call = service.codigos(codigo);
+        call.enqueue(new Callback<List<Favorito>>() {
+            @Override
+            public void onResponse(Call<List<Favorito>> call, Response<List<Favorito>> response) {
+                if(response.isSuccessful()){
+                    List<Favorito> favoritos = response.body();
+                    Prefs.setFavoritos(LoginActivity.this, "favoritos", new Gson().toJson(favoritos));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Favorito>> call, Throwable t) {
+
+            }
+        });
+
     }
 }

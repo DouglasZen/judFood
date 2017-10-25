@@ -17,17 +17,21 @@ public class AvaliacaoViewHolder extends RecyclerView.ViewHolder{
     final ImageView imagem;
     final TextView descricao;
     final ImageButton btFavorito;
+    final ImageButton btDesfavorito;
     final View view;
     final TextView codigoPrato;
     final TextView codigoRestaurante;
+    final TextView codigoFavorito;
     public AvaliacaoViewHolder(View view) {
         super(view);
         this.view = view;
         nome = (TextView) view.findViewById(R.id.a_tnome);
         imagem = (ImageView) view.findViewById(R.id.a_imageView);
         btFavorito = (ImageButton) view.findViewById(R.id.a_favorito);
+        btDesfavorito = (ImageButton) view.findViewById(R.id.a_desfavorito);
         descricao = (TextView) view.findViewById(R.id.a_tdescricao);
         codigoPrato = (TextView) view.findViewById(R.id.a_codigo_prato);
         codigoRestaurante = (TextView) view.findViewById(R.id.a_codigo_restaurante);
+        codigoFavorito = (TextView) view.findViewById(R.id.a_codigo_favorito);
     }
 }

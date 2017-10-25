@@ -4,15 +4,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     android:orientation="vertical"
-    >
+    android:background="@color/background">
+
+    <TextView
+        android:id="@+id/label_prato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="Cardápio"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/fonteCard"
+        android:gravity="right"
+        />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_seta"
+        android:background="@android:color/transparent"
+        android:gravity="right"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="voltar"
+        android:layout_marginTop="15dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listaPratos"
+        android:layout_below="@+id/label_prato"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_marginTop="80dp"
         />
 
     <fragment
@@ -25,6 +48,8 @@
         android:layout_marginTop="20dp"
         >
     </fragment>
+
+
 
 
 

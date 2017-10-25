@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.wsfood.pessoa.Pessoa;
 import br.com.wsfood.prato.Prato;
@@ -43,6 +43,7 @@ public class Comentario implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="codigo_prato")
 	private Prato prato;
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name="codigo_comentario")
 	private List<Comentario> respostas;

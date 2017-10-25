@@ -20,6 +20,7 @@ import com.facebook.login.LoginManager;
 import douglas.com.br.judfood.R;
 import douglas.com.br.judfood.util.Prefs;
 import douglas.com.br.judfood.view.favorito.FavoritoActivity;
+import douglas.com.br.judfood.view.home.HomeActivity;
 import douglas.com.br.judfood.view.login.LoginActivity;
 import douglas.com.br.judfood.view.promocao.PromocaoActivity;
 import douglas.com.br.judfood.view.restaurante.RestauranteActivity;
@@ -65,6 +66,11 @@ public class Menu extends Fragment {
                 promocao();
             }
         });
+        view.findViewById(R.id.btHome).setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                home();
+            }
+        });
         return view;
     }
 
@@ -74,30 +80,35 @@ public class Menu extends Fragment {
         ImageButton bfav = (ImageButton) view.findViewById(R.id.btFavorito);
         ImageButton brest = (ImageButton) view.findViewById(R.id.btRestaurante);
         ImageButton bpromo = (ImageButton) view.findViewById(R.id.btPromocao);
+        ImageButton bhome = (ImageButton) view.findViewById(R.id.btHome);
         AnimatorSet lista = new AnimatorSet();
         ObjectAnimator obj;
 
         if(!abrir){
             obj = ObjectAnimator.ofFloat(bmenu, "rotation", 0, -90);
             lista.playSequentially(obj);
-            obj = ObjectAnimator.ofFloat(bfav, "x", bfav.getX(), bmenu.getX() + (bmenu.getWidth()));
+            obj = ObjectAnimator.ofFloat(bhome, "x", bfav.getX(), bmenu.getX() + (bmenu.getWidth()));
             lista.playSequentially(obj);
-            obj = ObjectAnimator.ofFloat(brest, "x", brest.getX(), bmenu.getX() + (bmenu.getWidth() + bfav.getWidth()));
+            obj = ObjectAnimator.ofFloat(bfav, "x", bfav.getX(), bmenu.getX() + (bmenu.getWidth() + bhome.getWidth()));
             lista.playSequentially(obj);
-            obj = ObjectAnimator.ofFloat(bpromo, "x", bpromo.getX(), bmenu.getX() + (bmenu.getWidth() + bfav.getWidth() + bpromo.getWidth()));
+            obj = ObjectAnimator.ofFloat(brest, "x", brest.getX(), bmenu.getX() + (bmenu.getWidth() + bfav.getWidth() + bhome.getWidth()));
             lista.playSequentially(obj);
-            obj = ObjectAnimator.ofFloat(bsair, "x", bsair.getX(), bmenu.getX() + (bmenu.getWidth() + bfav.getWidth()) + brest.getWidth() + bpromo.getWidth());
+            obj = ObjectAnimator.ofFloat(bpromo, "x", bpromo.getX(), bmenu.getX() + (bmenu.getWidth() + bfav.getWidth() + bpromo.getWidth() + bhome.getWidth()));
+            lista.playSequentially(obj);
+            obj = ObjectAnimator.ofFloat(bsair, "x", bsair.getX(), bmenu.getX() + (bmenu.getWidth() + bfav.getWidth()) + brest.getWidth() + bpromo.getWidth() + bhome.getWidth());
             lista.playSequentially(obj);
 
             abrir = true;
         }else{
-            obj = ObjectAnimator.ofFloat(bfav, "x", bfav.getX(), bmenu.getX() );
+            obj = ObjectAnimator.ofFloat(bhome, "x", bhome.getX(), bmenu.getX());
             lista.playSequentially(obj);
-            obj = ObjectAnimator.ofFloat(brest, "x", brest.getX(), bmenu.getX() - (bmenu.getWidth() - bfav.getWidth()));
+            obj = ObjectAnimator.ofFloat(bfav, "x", bfav.getX(), bmenu.getX() - (bmenu.getWidth() - bhome.getWidth()));
             lista.playSequentially(obj);
-            obj = ObjectAnimator.ofFloat(bpromo, "x", bpromo.getX(), bmenu.getX() - (bmenu.getWidth() - bfav.getWidth()));
+            obj = ObjectAnimator.ofFloat(brest, "x", brest.getX(), bmenu.getX() - (bmenu.getWidth() - bhome.getWidth()));
             lista.playSequentially(obj);
-            obj = ObjectAnimator.ofFloat(bsair, "x", bsair.getX(), bmenu.getX() - (bmenu.getWidth() - bfav.getWidth()));
+            obj = ObjectAnimator.ofFloat(bpromo, "x", bpromo.getX(), bmenu.getX() - (bmenu.getWidth() - bhome.getWidth()));
+            lista.playSequentially(obj);
+            obj = ObjectAnimator.ofFloat(bsair, "x", bsair.getX(), bmenu.getX() - (bmenu.getWidth() - bhome.getWidth()));
             lista.playSequentially(obj);
             obj = ObjectAnimator.ofFloat(bmenu, "rotation", 0, 0);
             lista.playSequentially(obj);
@@ -137,6 +148,12 @@ public class Menu extends Fragment {
 
     public void promocao(){
         Intent intent = new Intent(getActivity(), PromocaoActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public void home(){
+        Intent intent = new Intent(getActivity(), HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

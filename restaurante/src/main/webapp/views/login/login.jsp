@@ -13,6 +13,9 @@
                     </div>
 					<div class="panel-body">
 						<input type="hidden" ng-model="usuario.codigo" id="codigoUsuario"/>
+						<div class="alert alert-danger" id="error" ng-if="mensagem">
+			                {{mensagem}}
+			            </div>
 						<div>
 							<label>E-mail</label>
 							<input class="form-control" ng-model="usuario.email"  id="email">

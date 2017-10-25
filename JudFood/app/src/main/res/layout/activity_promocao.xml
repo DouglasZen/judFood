@@ -4,9 +4,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     android:orientation="vertical"
-    >
+    android:background="@color/background">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listaPromocoes"
@@ -14,7 +15,16 @@
         android:layout_width="wrap_content"
         android:layout_marginTop="80dp"
         />
-
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_seta"
+        android:background="@android:color/transparent"
+        android:gravity="right"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="voltar"
+        android:layout_marginTop="15dp"/>
     <fragment
         android:id="@+id/menuOpcoes"
         class="douglas.com.br.judfood.view.Menu"

@@ -15,5 +15,5 @@ import retrofit2.http.POST;
 
 public interface ILoginService {
     @POST("pessoa/login")
-    Call<Resultado> login(@Body Pessoa pessoa);
+    Call<Pessoa> login(@Body Pessoa pessoa);
 }

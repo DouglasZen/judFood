@@ -46,6 +46,12 @@ public class RestauranteActivity extends AppCompatActivity {
 
     }
 
+    public void voltar(View view){
+        Intent intent = new Intent(RestauranteActivity.this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
     private void goLogin() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -56,15 +62,13 @@ public class RestauranteActivity extends AppCompatActivity {
         final List<Restaurante> restaurantes = new ArrayList<Restaurante>();
 
         IRestauranteService service = ServiceGenerator.createService(IRestauranteService.class);
-        final Call<Restaurantes> call = service.listaRestaurantes();
+        final Call<List<Restaurante>> call = service.listaRestaurantes();
 
-        call.enqueue(new Callback<Restaurantes>() {
+        call.enqueue(new Callback<List<Restaurante>>() {
             @Override
-            public void onResponse(Call<Restaurantes> call, Response<Restaurantes> response) {
+            public void onResponse(Call<List<Restaurante>> call, Response<List<Restaurante>> response) {
                 if(response.isSuccessful()){
-                    Restaurantes r = response.body();
-
-                    restaurantes.addAll(r.getRestaurante());
+                    restaurantes.addAll(response.body());
                     recyclerView = (RecyclerView) findViewById(R.id.listaRestaurantes);
                     RecyclerView.LayoutManager layout = new LinearLayoutManager(RestauranteActivity.this, LinearLayoutManager.VERTICAL, false);
                     recyclerView.setLayoutManager(layout);
@@ -76,7 +80,7 @@ public class RestauranteActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Restaurantes> call, Throwable t) {
+            public void onFailure(Call<List<Restaurante>> call, Throwable t) {
                 Log.e("ERRO",  t.getMessage());
             }
         });

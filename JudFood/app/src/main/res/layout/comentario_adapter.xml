@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="16dp"
     android:orientation="vertical"
+    android:background="@color/fonteCard"
     >
     <TextView
         android:id="@+id/comentario_codigo"

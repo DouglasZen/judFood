@@ -18,12 +18,15 @@ public class FavoritoViewHolder extends RecyclerView.ViewHolder{
     final TextView nome;
     final View view;
     final ImageButton btFavoritar;
+    final TextView codFavorito;
+    final TextView codPrato;
     public FavoritoViewHolder(View view) {
         super(view);
         this.view = view;
         imagem = (ImageView) view.findViewById(R.id.favorito_imagem);
         nome = (TextView) view.findViewById(R.id.favorito_nome);
         btFavoritar = (ImageButton) view.findViewById(R.id.favorito_estrela_imagem);
-
+        codFavorito = (TextView) view.findViewById(R.id.favorito_codigo);
+        codPrato = (TextView) view.findViewById(R.id.favorito_prato_codigo);
     }
 }

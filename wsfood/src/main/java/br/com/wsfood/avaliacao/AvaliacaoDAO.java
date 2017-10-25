@@ -26,7 +26,7 @@ public class AvaliacaoDAO extends BaseDAO{
 			a.setMedia(Double.parseDouble(result[1].toString()));
 			avaliacao.add(a);
 		}
-		
+		em.close();
 		return avaliacao;
 	}
 	
@@ -44,7 +44,7 @@ public class AvaliacaoDAO extends BaseDAO{
 			em.refresh(avaliacao);
 		}
 		
-		
+		em.close();
 		return avaliacao;
 	}
 }	

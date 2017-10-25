@@ -55,14 +55,14 @@ public class HomeActivity extends AppCompatActivity {
     public void listarCategorias(){
         final List<Categoria> categorias = new ArrayList<Categoria>();
         ICategoriaService service = ServiceGenerator.createService(ICategoriaService.class);
-        final Call<Categorias> call = service.listCategoria();
+        final Call<List<Categoria>> call = service.listCategoria();
 
-        call.enqueue(new Callback<Categorias>() {
+        call.enqueue(new Callback<List<Categoria>>() {
             @Override
-            public void onResponse(Call<Categorias> call, Response<Categorias> response) {
+            public void onResponse(Call<List<Categoria>> call, Response<List<Categoria>> response) {
                 if(response.isSuccessful()){
-                    Categorias c = response.body();
-                    categorias.addAll(c.getCategoria());
+                    List<Categoria> c = (List<Categoria>) response.body();
+                    categorias.addAll(c);
                     recyclerView = (RecyclerView) findViewById(R.id.listaCategorias);
                     RecyclerView.LayoutManager layout = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
                     recyclerView.setLayoutManager(layout);
@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Categorias> call, Throwable t) {
+            public void onFailure(Call<List<Categoria>> call, Throwable t) {
                 Log.e("ERRO HOME",  t.getMessage());
             }
         });

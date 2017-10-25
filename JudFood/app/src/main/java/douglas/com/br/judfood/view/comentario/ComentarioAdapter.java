@@ -42,9 +42,15 @@ public class ComentarioAdapter extends RecyclerView.Adapter{
         final ComentarioViewHolder holder = (ComentarioViewHolder) viewHolder;
 
         Comentario comentario = comentarios.get(position);
-        holder.codigo_autor.setText(String.valueOf(comentario.getPessoa().getCodigo()));
+        if(comentario.getPessoa() != null) {
+            holder.codigo_autor.setText(String.valueOf(comentario.getPessoa().getCodigo()));
+            holder.autor.setText(comentario.getPessoa().getNome());
+        }else{
+            holder.codigo_autor.setText(String.valueOf(comentario.getRestaurante().getCodigo()));
+            holder.autor.setText(comentario.getRestaurante().getNome());
+        }
         holder.codigo_comentario.setText(String.valueOf(comentario.getCodigo()));
-        holder.autor.setText(comentario.getPessoa().getNome());
+
         holder.texto.setText(comentario.getComentario());
 
         if(onClickListener != null){
@@ -53,6 +59,8 @@ public class ComentarioAdapter extends RecyclerView.Adapter{
                     onClickListener.onClickResponder(holder.view, position);
                 }
             });
+        }else{
+            holder.responder.setVisibility(View.INVISIBLE);
         }
     }
 

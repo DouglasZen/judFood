@@ -1,6 +1,7 @@
 package douglas.com.br.judfood.view.prato;
 
 import android.animation.ValueAnimator;
+import android.app.Presentation;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.w3c.dom.Text;
 
@@ -38,17 +41,20 @@ import douglas.com.br.judfood.service.IAvaliacaoService;
 import douglas.com.br.judfood.service.IFavoritoService;
 import douglas.com.br.judfood.service.IPratoService;
 import douglas.com.br.judfood.service.ServiceGenerator;
+import douglas.com.br.judfood.util.AtualizaFav;
 import douglas.com.br.judfood.util.Prefs;
 import douglas.com.br.judfood.view.avaliacao.AvaliacaoActivity;
 import douglas.com.br.judfood.view.favorito.FavoritoActivity;
 import douglas.com.br.judfood.view.home.HomeActivity;
 import douglas.com.br.judfood.view.login.LoginActivity;
+import douglas.com.br.judfood.view.restaurante.RestauranteActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import java.lang.reflect.Type;
 
 public class PratoActivity extends AppCompatActivity {
 
@@ -75,7 +81,11 @@ public class PratoActivity extends AppCompatActivity {
         }
 
     }
-
+    public void voltar (View view){
+        Intent intent = new Intent(PratoActivity.this, RestauranteActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
     private void goLogin() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -86,20 +96,22 @@ public class PratoActivity extends AppCompatActivity {
         final List<Prato> pratos = new ArrayList<Prato>();
 
         IPratoService service = ServiceGenerator.createService(IPratoService.class);
-        final Call<Pratos> call = service.listPratosRestaurante(Integer.parseInt(codRestaurante));
+        final Call<List<Prato>> call = service.listPratosRestaurante(Integer.parseInt(codRestaurante));
 
-        call.enqueue(new Callback<Pratos>() {
+        call.enqueue(new Callback<List<Prato>>() {
 
             @Override
-            public void onResponse(Call<Pratos> call, Response<Pratos> response) {
+            public void onResponse(Call<List<Prato>> call, Response<List<Prato>> response) {
                 if (response.isSuccessful()) {
-                    Pratos p = response.body();
-                    pratos.addAll(p.getPrato());
-
+                    pratos.addAll(response.body());
+                    Gson gson = new Gson();
+                    String f = Prefs.getFavoritos(PratoActivity.this, "favoritos");
+                    Type listType = new TypeToken<List<Favorito>>(){}.getType();
+                    List<Favorito> favoritos = (List<Favorito>) gson.fromJson(f, listType);
                     recyclerView = (RecyclerView) findViewById(R.id.listaPratos);
                     RecyclerView.LayoutManager layout =  new GridLayoutManager(PratoActivity.this, 2);
                     recyclerView.setLayoutManager(layout);
-                    recyclerView.setAdapter(new PratoAdapter(pratos, PratoActivity.this, onClickPrato()));
+                    recyclerView.setAdapter(new PratoAdapter(pratos, PratoActivity.this, onClickPrato(), favoritos));
                     listPrato = pratos;
 
                 } else {
@@ -111,7 +123,7 @@ public class PratoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Pratos> call, Throwable t) {
+            public void onFailure(Call<List<Prato>> call, Throwable t) {
                 t.printStackTrace();
                 Log.e("ERRO",  t.getMessage());
             }
@@ -134,18 +146,36 @@ public class PratoActivity extends AppCompatActivity {
 
             @Override
             public void onClickFavorito(View view, int idx) {
-                ImageButton star = (ImageButton)  view.findViewById(R.id.favorito);
+                ImageButton favoritar = (ImageButton)  view.findViewById(R.id.favorito);
+                ImageButton desfavoritar = (ImageButton)  view.findViewById(R.id.desfavorito);
+
                 TextView codigo = (TextView) view.findViewById(R.id.codigo_prato);
                 TextView codigoRestaurante = (TextView) view.findViewById(R.id.codigo_restaurante);
-                star.setColorFilter(Color.rgb(255,255,0));
+
                 int codigoPessoa = Prefs.getCodigoPessoa(PratoActivity.this,"codigoPessoa");
-                Toast.makeText(PratoActivity.this, codigo.getText() + " rest " + codigoRestaurante.getText() , Toast.LENGTH_SHORT).show();
-                favoritar(codigoPessoa, Integer.parseInt(codigo.getText().toString()), Integer.parseInt(codigoRestaurante.getText().toString()));
+                favoritar(codigoPessoa, Integer.parseInt(codigo.getText().toString()), Integer.parseInt(codigoRestaurante.getText().toString()), view);
+
+
+
+                favoritar.setVisibility(INVISIBLE);
+                desfavoritar.setVisibility(VISIBLE);
+                desfavoritar.setColorFilter(Color.rgb(255,255,0));
+            }
+
+            public void onClickDesfavorito(View view, int idx){
+                ImageButton favoritar = (ImageButton)  view.findViewById(R.id.favorito);
+                ImageButton desfavoritar = (ImageButton)  view.findViewById(R.id.desfavorito);
+                favoritar.setVisibility(VISIBLE);
+                desfavoritar.setVisibility(INVISIBLE);
+                TextView codigoFavorito = (TextView) view.findViewById(R.id.codigo_favorito);
+                TextView codigo = (TextView) view.findViewById(R.id.codigo_prato);
+                desfavoritar(codigoFavorito.getText().toString(), codigo.getText().toString());
+
             }
         };
     }
 
-    public void favoritar(int codigoPessoa, int codigoPrato, int codigoRestaurante){
+    public void favoritar(int codigoPessoa, int codigoPrato, int codigoRestaurante, final View view){
         Pessoa p = new Pessoa();
         p.setCodigo(codigoPessoa);
         Prato prato = new Prato();
@@ -165,13 +195,44 @@ public class PratoActivity extends AppCompatActivity {
             public void onResponse(Call<Favorito> call, Response<Favorito> response) {
                 Log.v("RESPONSE", response.message());
                 if(response.isSuccessful()){
+                    Favorito f = response.body();
                     Toast.makeText(PratoActivity.this, "Favoritado", Toast.LENGTH_SHORT).show();
+                    new AtualizaFav().addFavorito(PratoActivity.this, f);
+                    TextView codigofavorito = (TextView) view.findViewById(R.id.codigo_favorito);
+                    codigofavorito.setText(String.valueOf(f.getCodigo()));
                 }
             }
 
             @Override
             public void onFailure(Call<Favorito> call, Throwable t) {
                 Log.e("ERRO_FAVORITO" , t.getMessage());
+            }
+        });
+
+
+    }
+
+    public void desfavoritar(final String codigo, final String codPrato){
+        IFavoritoService service = ServiceGenerator.createService(IFavoritoService.class);
+        final Call<Favorito> call = service.removeFavorito(codigo);
+
+        call.enqueue(new Callback<Favorito>() {
+            @Override
+            public void onResponse(Call<Favorito> call, Response<Favorito> response) {
+                if(response.code() == 410){
+                    Toast.makeText(PratoActivity.this, "Removido", Toast.LENGTH_SHORT).show();
+                    Favorito f = new Favorito();
+                    Prato p = new Prato();
+                    p.setId(Integer.parseInt(codPrato));
+                    f.setPrato(p);
+                    f.setCodigo(Integer.parseInt(codigo));
+                    new AtualizaFav().removeFavorito(PratoActivity.this, f);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Favorito> call, Throwable t) {
+                Log.e("ERRO_desFAVORITO" , t.getMessage());
             }
         });
     }

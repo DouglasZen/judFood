@@ -1,6 +1,8 @@
 package douglas.com.br.judfood.service;
 
 
+import java.util.List;
+
 import douglas.com.br.judfood.comentario.Comentario;
 import douglas.com.br.judfood.comentario.Comentarios;
 import retrofit2.Call;
@@ -21,7 +23,7 @@ public interface IComentarioService {
     Call<Comentario> setResposta(@Body Comentario resposta);
 
     @GET("comentario/lista/{codigoprato}/{max}")
-    Call<Comentarios> listaComentarios (@Path("codigoprato") int codigoPrato, @Path("max") int max);
+    Call<List<Comentario>> listaComentarios (@Path("codigoprato") int codigoPrato, @Path("max") int max);
 
     @GET("comentario/respostas/{codigocomentario}")
     Call<Comentario> getComentario(@Path("codigocomentario") int codigoComentario);

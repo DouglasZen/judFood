@@ -21,6 +21,7 @@ public class PromocaoDAO extends BaseDAO{
 		query.setParameter("data2", data, TemporalType.TIMESTAMP);
 		List<Promocao> p = query.getResultList();
 		
+		em.close();
 		return p;
 	}
 }

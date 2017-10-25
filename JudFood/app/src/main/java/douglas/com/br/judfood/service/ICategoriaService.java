@@ -13,5 +13,5 @@ import retrofit2.http.GET;
 
 public interface ICategoriaService {
     @GET("categoria/")
-    Call<Categorias> listCategoria();
+    Call<List<Categoria>> listCategoria();
 }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,25 +12,18 @@ import android.util.Base64;
 import android.util.Log;
 
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import douglas.com.br.judfood.ComentarioActivity;
+import douglas.com.br.judfood.view.comentario.ComentarioActivity;
 import douglas.com.br.judfood.R;
 import douglas.com.br.judfood.avaliacao.Avaliacao;
 import douglas.com.br.judfood.comentario.Comentario;
-import douglas.com.br.judfood.comentario.Comentarios;
 import douglas.com.br.judfood.pessoa.Pessoa;
 import douglas.com.br.judfood.prato.Prato;
 import douglas.com.br.judfood.restaurante.Restaurante;
@@ -40,9 +32,9 @@ import douglas.com.br.judfood.service.IComentarioService;
 import douglas.com.br.judfood.service.IPratoService;
 import douglas.com.br.judfood.service.ServiceGenerator;
 import douglas.com.br.judfood.util.Prefs;
-import douglas.com.br.judfood.view.avaliacao.AvaliacaoActivity;
 import douglas.com.br.judfood.view.comentario.ComentarioAdapter;
-import douglas.com.br.judfood.view.login.LoginActivity;
+import douglas.com.br.judfood.view.favorito.FavoritoActivity;
+import douglas.com.br.judfood.view.restaurante.RestauranteActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,6 +47,7 @@ public class PratoIntegraActivity extends AppCompatActivity {
     private ImageView iv_image_prato;
     private TextView tv_codigo_avaliacao;
     private TextView tv_total_comentario;
+    String origem = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +55,28 @@ public class PratoIntegraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_prato_integra);
 
         Bundle extras = getIntent().getExtras();
+        int tamanho = extras.size();
         if(extras != null){
             getPrato(extras.getString("codigo_prato").toString());
+            if(tamanho > 1)
+                origem = extras.getString("origem").toString();
             //Toast.makeText(this, extras.getString("codigo_prato").toString(), Toast.LENGTH_SHORT).show();
         }
 
     }
+    public void voltar(View view){
+        tv_codigo_restaurante = (TextView) findViewById(R.id.integra_codigo_restaurante);
+        Intent i;
+        if(null != origem){
+            i = new Intent(PratoIntegraActivity.this, FavoritoActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        }else{
+            i = new Intent(PratoIntegraActivity.this, PratoActivity.class);
+            i.putExtra("codigo_restaurante", tv_codigo_restaurante.getText().toString());
+        }
 
+        startActivity(i);
+    }
     public void getPrato(String codigo_prato){
         int codigoPessoa = Prefs.getCodigoPessoa(PratoIntegraActivity.this,"codigoPessoa");
         IPratoService service = ServiceGenerator.createService(IPratoService.class);
@@ -118,13 +126,13 @@ public class PratoIntegraActivity extends AppCompatActivity {
                 star = (ImageButton) findViewById(R.id.integra_star_1);
                 star.setColorFilter(Color.rgb(255,255,0));
                 star = (ImageButton) findViewById(R.id.integra_star_2);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 star = (ImageButton) findViewById(R.id.integra_star_3);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 star = (ImageButton) findViewById(R.id.integra_star_4);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 star = (ImageButton) findViewById(R.id.integra_star_5);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 calcular(1);
                 break;
             case R.id.integra_star_2:
@@ -133,11 +141,11 @@ public class PratoIntegraActivity extends AppCompatActivity {
                 star = (ImageButton) findViewById(R.id.integra_star_2);
                 star.setColorFilter(Color.rgb(255,255,0));
                 star = (ImageButton) findViewById(R.id.integra_star_3);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 star = (ImageButton) findViewById(R.id.integra_star_4);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 star = (ImageButton) findViewById(R.id.integra_star_5);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 calcular(2);
                 break;
             case R.id.integra_star_3:
@@ -148,9 +156,9 @@ public class PratoIntegraActivity extends AppCompatActivity {
                 star = (ImageButton) findViewById(R.id.integra_star_3);
                 star.setColorFilter(Color.rgb(255,255,0));
                 star = (ImageButton) findViewById(R.id.integra_star_4);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 star = (ImageButton) findViewById(R.id.integra_star_5);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 calcular(3);
                 break;
             case R.id.integra_star_4:
@@ -163,7 +171,7 @@ public class PratoIntegraActivity extends AppCompatActivity {
                 star = (ImageButton) findViewById(R.id.integra_star_4);
                 star.setColorFilter(Color.rgb(255,255,0));
                 star = (ImageButton) findViewById(R.id.integra_star_5);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 calcular(4);
                 break;
             case R.id.integra_star_5:
@@ -302,22 +310,21 @@ public class PratoIntegraActivity extends AppCompatActivity {
         int codigo_prato = Integer.parseInt(tv_codigo_prato.getText().toString());
 
         IComentarioService service = ServiceGenerator.createService(IComentarioService.class);
-        final Call<Comentarios> call = service.listaComentarios(codigo_prato, max);
+        final Call <List<Comentario>> call = service.listaComentarios(codigo_prato, max);
 
-        call.enqueue(new Callback<Comentarios>() {
+        call.enqueue(new Callback<List<Comentario>>() {
             @Override
-            public void onResponse(Call<Comentarios> call, Response<Comentarios> response) {
+            public void onResponse(Call<List<Comentario>> call, Response<List<Comentario>> response) {
                 if(response.isSuccessful()){
-                    Comentarios c = response.body();
                     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.integra_lista_comment_save);
                     RecyclerView.LayoutManager layout = new LinearLayoutManager(PratoIntegraActivity.this, LinearLayoutManager.VERTICAL, false);
                     recyclerView.setLayoutManager(layout);
-                    recyclerView.setAdapter(new ComentarioAdapter(c.getComentario(), PratoIntegraActivity.this, onClickResponder()));
+                    recyclerView.setAdapter(new ComentarioAdapter(response.body(), PratoIntegraActivity.this, onClickResponder()));
                 }
             }
 
             @Override
-            public void onFailure(Call<Comentarios> call, Throwable t) {
+            public void onFailure(Call<List<Comentario>> call, Throwable t) {
                 Log.e("ERRO_COMENTARIO" , t.getMessage());
             }
         });
@@ -346,13 +353,13 @@ public class PratoIntegraActivity extends AppCompatActivity {
                 star = (ImageButton) findViewById(R.id.integra_star_1);
                 star.setColorFilter(Color.rgb(255,255,0));
                 star = (ImageButton) findViewById(R.id.integra_star_2);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 star = (ImageButton) findViewById(R.id.integra_star_3);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 star = (ImageButton) findViewById(R.id.integra_star_4);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 star = (ImageButton) findViewById(R.id.integra_star_5);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 break;
             case 2:
                 star = (ImageButton) findViewById(R.id.integra_star_1);
@@ -360,11 +367,11 @@ public class PratoIntegraActivity extends AppCompatActivity {
                 star = (ImageButton) findViewById(R.id.integra_star_2);
                 star.setColorFilter(Color.rgb(255,255,0));
                 star = (ImageButton) findViewById(R.id.integra_star_3);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 star = (ImageButton) findViewById(R.id.integra_star_4);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 star = (ImageButton) findViewById(R.id.integra_star_5);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 break;
             case 3:
                 star = (ImageButton) findViewById(R.id.integra_star_1);
@@ -374,9 +381,9 @@ public class PratoIntegraActivity extends AppCompatActivity {
                 star = (ImageButton) findViewById(R.id.integra_star_3);
                 star.setColorFilter(Color.rgb(255,255,0));
                 star = (ImageButton) findViewById(R.id.integra_star_4);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 star = (ImageButton) findViewById(R.id.integra_star_5);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 break;
             case 4:
                 star = (ImageButton) findViewById(R.id.integra_star_1);
@@ -388,7 +395,7 @@ public class PratoIntegraActivity extends AppCompatActivity {
                 star = (ImageButton) findViewById(R.id.integra_star_4);
                 star.setColorFilter(Color.rgb(255,255,0));
                 star = (ImageButton) findViewById(R.id.integra_star_5);
-                star.setColorFilter(Color.rgb(0,0,0));
+                star.setColorFilter(Color.rgb(255,255,255));
                 break;
             case 5:
                 star = (ImageButton) findViewById(R.id.integra_star_1);

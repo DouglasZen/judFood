@@ -1,5 +1,6 @@
-package douglas.com.br.judfood;
+package douglas.com.br.judfood.view.comentario;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,17 +11,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
+import douglas.com.br.judfood.R;
 import douglas.com.br.judfood.comentario.Comentario;
-import douglas.com.br.judfood.comentario.Comentarios;
 import douglas.com.br.judfood.pessoa.Pessoa;
 import douglas.com.br.judfood.prato.Prato;
 import douglas.com.br.judfood.restaurante.Restaurante;
 import douglas.com.br.judfood.service.IComentarioService;
 import douglas.com.br.judfood.service.ServiceGenerator;
 import douglas.com.br.judfood.util.Prefs;
-import douglas.com.br.judfood.view.comentario.ComentarioAdapter;
+import douglas.com.br.judfood.view.prato.PratoActivity;
 import douglas.com.br.judfood.view.prato.PratoIntegraActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,6 +43,12 @@ public class ComentarioActivity extends AppCompatActivity {
         }
     }
 
+    public void voltar(View view){
+        codigoPrato = (TextView) findViewById(R.id.resposta_prato_codigo);
+        Intent i = new Intent(ComentarioActivity.this, PratoIntegraActivity.class);
+        i.putExtra("codigo_prato", codigoPrato.getText().toString());
+        startActivity(i);
+    }
     public void getComentario(int codComentario){
         codigoComentario = (TextView) findViewById(R.id.resposta_comentario_codigo);
         codigoAutor = (TextView) findViewById(R.id.resposta_comentario_codigo_autor);
@@ -59,14 +64,18 @@ public class ComentarioActivity extends AppCompatActivity {
             public void onResponse(Call<Comentario> call, Response<Comentario> response) {
                 if(response.isSuccessful()){
                     Comentario comentario = response.body();
-                    if(comentario.getRespostas() == null){
-                        comentario.setRespostas(new ArrayList<Comentario>());
-                    }
                     codigoComentario.setText(String.valueOf(comentario.getCodigo()));
-                    codigoAutor.setText(String.valueOf(comentario.getPessoa().getCodigo()));
+                    if(comentario.getPessoa() == null){
+                        codigoAutor.setText(String.valueOf(comentario.getRestaurante().getCodigo()));
+                        autor.setText(comentario.getRestaurante().getNome());
+                    }else{
+                        codigoAutor.setText(String.valueOf(comentario.getPessoa().getCodigo()));
+                        autor.setText(comentario.getPessoa().getNome());
+                    }
+
                     codigoPrato.setText(String.valueOf(comentario.getPrato().getId()));
                     codigoRestaurante.setText(String.valueOf(comentario.getRestaurante().getCodigo()));
-                    autor.setText(comentario.getPessoa().getNome());
+
                     textoComentario.setText(comentario.getComentario());
 
                     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.resposta_lista_comment_save);

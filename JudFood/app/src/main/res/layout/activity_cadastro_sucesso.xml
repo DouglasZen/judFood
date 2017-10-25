@@ -7,7 +7,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="douglas.com.br.judfood.view.cadastro.CadastroSucessoActivity">
+    tools:context="douglas.com.br.judfood.view.cadastro.CadastroSucessoActivity"
+    android:background="@color/background"
+    >
 
 
     <TextView
@@ -18,11 +20,17 @@
         android:text="Parabéns, agora você está cadastrado!"
         android:textSize="30dp"
         android:textStyle="bold"
+        android:textColor="@color/fonteCard"
         />
-
-    <Button
+    <TextView
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Clique para Logar" />
+        android:text="Clique para Logar"
+        android:textColor="@color/fonteCard"
+        android:layout_below="@+id/comentario_texto"
+        android:layout_alignParentEnd="true"
+        android:onClick="logar"
+        />
+
 </LinearLayout>

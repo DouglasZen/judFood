@@ -17,8 +17,7 @@
  	<mvc:annotation-driven/>
  	
  	<mvc:interceptors>
-	  <bean class=
-	    "br.com.douglas.restaurante.common.AutorizadorInterceptor" />
+	  <bean class="br.com.douglas.restaurante.common.AutorizadorInterceptor" />
 	</mvc:interceptors>
  	
  	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">

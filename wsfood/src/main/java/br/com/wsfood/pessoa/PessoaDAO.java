@@ -23,21 +23,27 @@ public class PessoaDAO extends BaseDAO{
 		
 	}
 	
-	public Resultado login(String email, String senha){
-		Resultado resultado = new Resultado();
+	public Pessoa login(String email, String senha){
+		
 		Query query = em.createQuery("select p from Pessoa p where p.email = :email and p.senha = :senha" , Pessoa.class);
 		query.setParameter("email", email);
 		query.setParameter("senha", senha);
-		List<Pessoa> list = (List<Pessoa>) query.getResultList();
-		if(!list.isEmpty()){
-			resultado.setResultado(true);
-			resultado.setCodigoPessoa(list.get(0).getCodigo());
-			return resultado;
+		if(!query.getResultList().isEmpty()){
+			Pessoa pessoa = (Pessoa) query.getSingleResult();
+			return pessoa;
 		}else{
-			resultado.setResultado(false);
-			return resultado;
+			return new Pessoa();
 		}
 		
+	}
+	
+	public boolean verificarEmail(String email){
+		Query query = em.createQuery("select p from Pessoa p where p.email = :email");
+		query.setParameter("email", email);
+		if(!query.getResultList().isEmpty()){
+			return true;
+		}
+		return false;
 	}
 	
 	public void setPessoa(Pessoa pessoa){

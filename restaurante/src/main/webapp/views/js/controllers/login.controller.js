@@ -17,11 +17,13 @@
 		}
 		
 		$scope.logar = function(usuario){
-			console.log(usuario);
+			$scope.mensagem = '';
 			$http.post('/restaurante/login/logar', usuario)
 			.success(function(data){
 				if(data){
 					$window.location.href = '/restaurante/home/';
+				}else{
+					$scope.mensagem = 'Dados inválidos!'
 				}
 			})
 			

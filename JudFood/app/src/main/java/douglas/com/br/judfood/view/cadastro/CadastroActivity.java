@@ -12,6 +12,7 @@ import douglas.com.br.judfood.R;
 import douglas.com.br.judfood.pessoa.Pessoa;
 import douglas.com.br.judfood.service.IPessoaService;
 import douglas.com.br.judfood.service.ServiceGenerator;
+import douglas.com.br.judfood.util.Resultado;
 import douglas.com.br.judfood.view.MainActivity;
 import douglas.com.br.judfood.view.login.LoginActivity;
 import retrofit2.Call;
@@ -37,13 +38,43 @@ public class CadastroActivity extends AppCompatActivity {
         senha = (EditText) findViewById(R.id.etSenha);
         confSenha = (EditText) findViewById(R.id.etConfSenha);
 
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome(nome.getText().toString());
-        pessoa.setEmail(email.getText().toString());
-        pessoa.setSenha(senha.getText().toString());
+        if(senha.getText().toString().equals(confSenha.getText().toString())) {
+            Pessoa pessoa = new Pessoa();
+            pessoa.setNome(nome.getText().toString());
+            pessoa.setEmail(email.getText().toString());
+            pessoa.setSenha(senha.getText().toString());
+            verificaEmail(pessoa);
+        }else{
+            Toast.makeText(CadastroActivity.this, "As senhas não conferem", Toast.LENGTH_LONG).show();
+        }
 
-        setPessoa(pessoa);
 
+    }
+
+    public void verificaEmail(final Pessoa pessoa){
+        IPessoaService service = ServiceGenerator.createService(IPessoaService.class);
+        final Call<Resultado> call = service.verificaemail(pessoa);
+
+        call.enqueue(new Callback<Resultado>() {
+            @Override
+            public void onResponse(Call<Resultado> call, Response<Resultado> response) {
+                if(response.isSuccessful()){
+                    Resultado resultado = response.body();
+                    if(!resultado.isResultado()) {
+                        setPessoa(pessoa);
+                    }else {
+                        Toast.makeText(CadastroActivity.this, "Esse e-mail ja está vinculado", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+                Log.v("RESPONSE", String.valueOf(response.code()));
+            }
+
+            @Override
+            public void onFailure(Call<Resultado> call, Throwable t) {
+                Log.e("RESPONSE ERROR", t.getMessage());
+            }
+        });
 
     }
 

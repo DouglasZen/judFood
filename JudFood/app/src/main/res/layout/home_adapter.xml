@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardHome"
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:layout_gravity="center"
-    android:layout_margin="2dp"
-    app:cardCornerRadius="2dp"
-    app:contentPadding="10dp">
-    <!--app:cardBackgroundColor="@color/cardbackground"-->
 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:orientation="vertical"
+    android:background="@color/background"
+    >
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="150dp">
         <ImageView
             android:id="@+id/imagemCategoria"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="140dp"
-            android:scaleType="fitXY"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
             android:layout_alignParentTop="true"
-
-            android:src="@drawable/categoria2"
-            android:rotation="20.0"
-
+            android:src="@drawable/direita"
+            android:layout_alignParentBottom="true"
+            android:scaleY="1.4"
             />
 
         <TextView
@@ -42,7 +34,9 @@
             android:id="@+id/tnomeCategoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="70dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
             android:text="TextView"
 
 
@@ -50,11 +44,11 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_below="@+id/tnome"
             android:layout_width="match_parent"
             android:layout_height="200px"
-            />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+</RelativeLayout>

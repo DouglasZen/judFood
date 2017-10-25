@@ -16,6 +16,7 @@ public class RestauranteDAO extends BaseDAO{
 		List<Restaurante> r = new ArrayList<Restaurante>();
 		Query query = em.createQuery("select r from Restaurante r");
 		r = query.getResultList();
+		em.close();
 		return r;
 	}
 }

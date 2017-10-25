@@ -18,9 +18,11 @@ public class PratoViewHolder extends RecyclerView.ViewHolder{
     final ImageView imagem;
     //final TextView descricao;
     final ImageButton btFavorito;
+    final ImageButton btDesfavorito;
     final View view;
     final TextView codigoPrato;
     final TextView codigoRestaurante;
+    final TextView codigoFavorito;
     public PratoViewHolder(View view) {
         super(view);
         this.view = view;
@@ -30,5 +32,7 @@ public class PratoViewHolder extends RecyclerView.ViewHolder{
         //descricao = (TextView) view.findViewById(R.id.tdescricao);
         codigoPrato = (TextView) view.findViewById(R.id.codigo_prato);
         codigoRestaurante = (TextView) view.findViewById(R.id.codigo_restaurante);
+        btDesfavorito = (ImageButton) view.findViewById(R.id.desfavorito);
+        codigoFavorito = (TextView) view.findViewById(R.id.codigo_favorito);
     }
 }

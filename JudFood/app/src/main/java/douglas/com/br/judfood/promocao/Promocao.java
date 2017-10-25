@@ -9,8 +9,8 @@ import java.util.Date;
 public class Promocao {
     private int codigo;
     private String descricao;
-    private Date dataini;
-    private Date datafim;
+    //private Date dataini;
+    //private Date datafim;
     private String imagem;
 
     public int getCodigo() {
@@ -29,7 +29,7 @@ public class Promocao {
         this.descricao = descricao;
     }
 
-    public Date getDataini() {
+    /*public Date getDataini() {
         return dataini;
     }
 
@@ -43,7 +43,7 @@ public class Promocao {
 
     public void setDatafim(Date datafim) {
         this.datafim = datafim;
-    }
+    }*/
 
     public String getImagem() {
         return imagem;

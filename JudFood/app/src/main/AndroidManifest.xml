@@ -33,7 +33,7 @@
         <activity android:name=".view.restaurante.RestauranteActivity" />
         <activity android:name=".view.promocao.PromocaoActivity" />
         <activity android:name=".view.prato.PratoIntegraActivity" />
-        <activity android:name=".ComentarioActivity"></activity>
+        <activity android:name=".view.comentario.ComentarioActivity"></activity>
     </application>
 
 </manifest>

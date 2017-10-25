@@ -3,6 +3,7 @@ package douglas.com.br.judfood.view.favorito;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -51,17 +52,19 @@ public class FavoritoAdapter extends RecyclerView.Adapter{
 
         holder.imagem.setImageBitmap(bitmap);
         holder.nome.setText(favorito.getPrato().getNome());
-
+        holder.codFavorito.setText(String.valueOf(favorito.getCodigo()));
+        holder.codPrato.setText(String.valueOf(favorito.getPrato().getId()));
+        holder.btFavoritar.setColorFilter(Color.rgb(255,255,0));
         if(onClickListerner != null){
             holder.itemView.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v){
-                    onClickListerner.onClickFavoritar(holder.view, position);
+                    onClickListerner.onClickIntegra(holder.view, position);
                 }
             });
 
             holder.btFavoritar.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v){
-                    onClickListerner.onClickIntegra(holder.view, position);
+                    onClickListerner.onClickFavoritar(holder.view, position);
                 }
             });
         }

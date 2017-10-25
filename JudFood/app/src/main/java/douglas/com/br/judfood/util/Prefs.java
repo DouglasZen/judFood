@@ -3,6 +3,8 @@ package douglas.com.br.judfood.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.List;
+
 /**
  * Created by Douglas on 10/08/2017.
  */
@@ -34,6 +36,19 @@ public class Prefs {
     public static int getCodigoPessoa(Context context, String chave){
         SharedPreferences pref = context.getSharedPreferences(PREF_ID, 0);
         int s = pref.getInt(chave, 0);
+        return  s;
+    }
+
+    public static void setFavoritos(Context context, String chave, String lista){
+        SharedPreferences pref = context.getSharedPreferences(PREF_ID, 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(chave, lista);
+        editor.commit();
+    }
+
+    public static String getFavoritos(Context context, String chave){
+        SharedPreferences pref = context.getSharedPreferences(PREF_ID, 0);
+        String s = pref.getString(chave, "");
         return  s;
     }
 }

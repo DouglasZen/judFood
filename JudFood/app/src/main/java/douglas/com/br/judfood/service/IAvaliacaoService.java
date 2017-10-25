@@ -1,5 +1,7 @@
 package douglas.com.br.judfood.service;
 
+        import java.util.List;
+
         import douglas.com.br.judfood.avaliacao.Avaliacao;
         import douglas.com.br.judfood.avaliacao.Avaliacoes;
         import retrofit2.Call;
@@ -14,7 +16,7 @@ package douglas.com.br.judfood.service;
 
 public interface IAvaliacaoService {
     @GET("avaliacao/ranking/{codcategoria}")
-    Call<Avaliacoes> listranking(@Path("codcategoria") int codcategoria);
+    Call<List<Avaliacao>> listranking(@Path("codcategoria") int codcategoria);
 
     @POST("avaliacao/")
     Call<Avaliacao> setAvaliacao(@Body Avaliacao avaliacao);
