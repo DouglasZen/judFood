@@ -29,7 +29,6 @@ public class Prato {
 	@ManyToOne
 	@JoinColumn(name="codigo_categoria")
 	private Categoria categoria;
-	
 	@Column(name="imagem")
 	private String imagem;
 	@ManyToOne
@@ -37,7 +36,8 @@ public class Prato {
 	private Restaurante restaurante;
 	@Column(name="nome")
 	private String nome;
-	
+	@Column(name="status")
+	private String status;
 	
 	public Prato(String descricao, Categoria categoria) {
 		super();
@@ -95,6 +95,14 @@ public class Prato {
 
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

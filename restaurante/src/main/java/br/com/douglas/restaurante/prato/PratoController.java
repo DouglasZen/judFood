@@ -59,12 +59,14 @@ public class PratoController {
 		Prato p = new Prato();
 		p = new Gson().fromJson(request.getParameter("prato"), Prato.class);
 		if(p.getId() != null){
+			Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
 			MultipartFile file = request.getFile("imagem");
 			if(file != null){
 				byte[] imagem = file.getBytes();
 				String img64 = Base64.getEncoder().encodeToString(imagem);
 				p.setImagem(img64);
 			}
+			p.setRestaurante(usuario.getRestaurante());
 			service.addPrato(p);
 		}else{
 			Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
@@ -73,6 +75,7 @@ public class PratoController {
 			String img64 = Base64.getEncoder().encodeToString(imagem);
 			p.setImagem(img64);
 			p.setRestaurante(usuario.getRestaurante());
+			p.setStatus("1");
 			service.addPrato(p);
 		}
 		
@@ -90,6 +93,11 @@ public class PratoController {
 	@RequestMapping(value = "/getPrato/{codigo}", method = RequestMethod.GET)
 	public @ResponseBody Prato prato(@PathVariable("codigo") int codigo){
 		return service.getPrato(codigo);
+	}
+	
+	@RequestMapping(value="/setStatus/{codigo}/{status}", method = RequestMethod.GET)
+	public @ResponseBody boolean setStatus(@PathVariable("codigo") int codigo, @PathVariable("status") String status){
+		return service.setStatus(codigo, status);
 	}
 	
 }

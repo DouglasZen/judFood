@@ -17,6 +17,7 @@ public class ComentarioViewHolder extends RecyclerView.ViewHolder{
     final TextView texto;
     final TextView responder;
     final View view;
+    final TextView total;
 
     public ComentarioViewHolder(View view){
         super(view);
@@ -26,5 +27,6 @@ public class ComentarioViewHolder extends RecyclerView.ViewHolder{
         autor = (TextView) view.findViewById(R.id.comentario_autor);
         texto = (TextView) view.findViewById(R.id.comentario_texto);
         responder = (TextView) view.findViewById(R.id.comentario_responder);
+        total = (TextView) view.findViewById(R.id.comentario_total_resposta);
     }
 }

@@ -13,6 +13,18 @@
 			$window.location.href = '/restaurante/prato/editar/' + codigo;
 		}
 		
+		$scope.ativar = function(codigo){
+			$http.get('/restaurante/prato/setStatus/' + codigo + '/1' ).success(function(data){
+				$window.location.reload()
+			})
+		}
+		
+		$scope.desativar = function(codigo){
+			$http.get('/restaurante/prato/setStatus/' + codigo + '/0' ).success(function(data){
+				$window.location.reload()
+			})
+		}
+		
 		function init(){
 			listarPratos();
 		}

@@ -32,7 +32,6 @@
 					codigo_prato : codigo_prato,
 					resposta : resposta
 				}).success(function(data){
-					alert(data);
 					listarComentarios();
 				});
 				console.log(resposta, codigo);

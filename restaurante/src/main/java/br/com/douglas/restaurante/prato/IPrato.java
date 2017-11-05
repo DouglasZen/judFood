@@ -7,4 +7,5 @@ public interface IPrato {
 	public List<Prato> listarPrato(int codigoRestaurante);
 	public Prato getPrato(int codigo);
 	public double getMedia(int codigo);
+	public boolean setStatus(int codigo, String status);
 }

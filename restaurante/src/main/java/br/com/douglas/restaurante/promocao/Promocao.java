@@ -38,6 +38,8 @@ public class Promocao {
 	private String imagem;
 	@Column(name="titulo")
 	private String titulo;
+	@Column(name="status")
+	private String status;
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -91,6 +93,12 @@ public class Promocao {
 	}
 	public void setData_fim_str(String data_fim_str) {
 		this.data_fim_str = data_fim_str;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

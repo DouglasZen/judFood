@@ -34,14 +34,17 @@
 		</div>
 	</div>
 	<div class="row col-sm-offset-3">
+		<div class="alert alert-danger" id="error" ng-if="mensagem">
+                {{mensagem}}
+            </div>
 		<input type="hidden" ng-model="restaurante.codigo" id="codigoRestaurante" value="${requestScope.codigo}"/>
 		<div class="col-lg-8">
 			<div>
-				<label>Nome</label>
-				<input class="form-control" ng-model="restaurante.nome">
+				<label>Nome *</label>
+				<input class="form-control" ng-model="restaurante.nome" id="nome">
 			</div>
 			<div>
-				<label>Endereço</label>
+				<label>Endereço *</label>
 				<input class="form-control" ng-model="restaurante.endereco" id="endereco">
 			</div>
 		</div>

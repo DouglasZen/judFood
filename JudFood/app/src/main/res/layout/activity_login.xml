@@ -26,6 +26,7 @@
         android:inputType="textEmailAddress"
         android:hint="e-mail"
         android:textColor="@color/fonteCard"
+        android:textColorHint="@color/fonteCard"
         />
 
     <EditText
@@ -36,6 +37,7 @@
         android:inputType="textPassword"
         android:hint="senha"
         android:textColor="@color/fonteCard"
+        android:textColorHint="@color/fonteCard"
         />
 
     <Button

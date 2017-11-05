@@ -27,7 +27,11 @@ public class ComentarioDAO extends BaseDAO{
 	}
 	
 	public List<Comentario> listaComentarioPrato(int codigoPrato, int max){
-		Query query = em.createQuery("select c.codigo, c.comentario, c.pessoa"
+		em.getTransaction().begin();
+		Query query = em.createQuery("select c.codigo, "
+								   + "c.comentario, "
+								   + "c.pessoa ,"
+								   + " (select count(r.codigo) from Comentario r where r.codComentario = c.codigo)"
 				                   + " from Comentario c"
 				                   + " where c.prato.id = :codigo"
 				                   + " and c.codComentario IS NULL"
@@ -45,9 +49,11 @@ public class ComentarioDAO extends BaseDAO{
 			Pessoa pessoa = new Pessoa();
 			pessoa = (Pessoa) result[2];
 			comentario.setPessoa(pessoa);
+			comentario.setTotal(Integer.parseInt(result[3].toString()));
 			comentarios.add(comentario);
 		}
-		
+		em.flush();
+		em.close();
 		return comentarios;
 	}
 	

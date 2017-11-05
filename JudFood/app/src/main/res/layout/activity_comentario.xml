@@ -52,12 +52,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:textColor="@color/fonteCard"
             />
         <TextView
             android:id="@+id/resposta_texto_comentario"
             android:layout_below="@+id/resposta_comentario_autor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/fonteCard"
             />
         <RelativeLayout
             android:id="@+id/resposta_lista_comment"
@@ -69,7 +71,7 @@
                 android:id="@+id/resposta_text_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-
+                android:textColor="@color/fonteCard"
                 />
             <ImageButton
                 android:id="@+id/resposta_send_comment"

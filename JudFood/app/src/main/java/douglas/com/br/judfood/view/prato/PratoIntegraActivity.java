@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import douglas.com.br.judfood.view.avaliacao.AvaliacaoActivity;
 import douglas.com.br.judfood.view.comentario.ComentarioActivity;
 import douglas.com.br.judfood.R;
 import douglas.com.br.judfood.avaliacao.Avaliacao;
@@ -47,6 +48,7 @@ public class PratoIntegraActivity extends AppCompatActivity {
     private ImageView iv_image_prato;
     private TextView tv_codigo_avaliacao;
     private TextView tv_total_comentario;
+    private TextView tv_codigo_categoria;
     String origem = null;
 
     @Override
@@ -66,10 +68,18 @@ public class PratoIntegraActivity extends AppCompatActivity {
     }
     public void voltar(View view){
         tv_codigo_restaurante = (TextView) findViewById(R.id.integra_codigo_restaurante);
-        Intent i;
+        Intent i = null;
         if(null != origem){
-            i = new Intent(PratoIntegraActivity.this, FavoritoActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            if("favorito".equals(origem)){
+                i = new Intent(PratoIntegraActivity.this, FavoritoActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            }else if("ranking".equals(origem)){
+
+                i = new Intent(PratoIntegraActivity.this, AvaliacaoActivity.class);
+                i.putExtra("codigoCategoria", tv_codigo_categoria.getText().toString());
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+
         }else{
             i = new Intent(PratoIntegraActivity.this, PratoActivity.class);
             i.putExtra("codigo_restaurante", tv_codigo_restaurante.getText().toString());
@@ -97,6 +107,7 @@ public class PratoIntegraActivity extends AppCompatActivity {
                     tv_codigo_restaurante = (TextView) findViewById(R.id.integra_codigo_restaurante);
                     tv_codigo_avaliacao = (TextView) findViewById(R.id.integra_codigo_avaliacao);
                     tv_total_comentario = (TextView) findViewById(R.id.integra_qtd_comment);
+                    tv_codigo_categoria = (TextView) findViewById(R.id.integra_codigo_categoria);
 
                     iv_image_prato.setImageBitmap(bitmap);
                     tv_codigo_prato.setText(prato.getId().toString());
@@ -105,6 +116,7 @@ public class PratoIntegraActivity extends AppCompatActivity {
                     tv_descricao_prato.setText(prato.getDescricao());
                     tv_codigo_avaliacao.setText(String.valueOf(prato.getCod_avaliacao()));
                     tv_total_comentario.setText(String.valueOf(prato.getTotal_comentario()));
+                    tv_codigo_categoria.setText(String.valueOf(prato.getCategoria().getCodigo()));
                     if(prato.getMedia() > 0)
                         setEstrela(prato.getMedia());
 

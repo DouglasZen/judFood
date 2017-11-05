@@ -94,7 +94,7 @@ public class ComentarioActivity extends AppCompatActivity {
     }
 
     public void responder(View view){
-        EditText textoResposta = (EditText) findViewById(R.id.resposta_text_comment);
+        final EditText textoResposta = (EditText) findViewById(R.id.resposta_text_comment);
         codigoPrato = (TextView) findViewById(R.id.resposta_prato_codigo);
         codigoRestaurante = (TextView) findViewById(R.id.resposta_restaurante_codigo);
         codigoComentario = (TextView) findViewById(R.id.resposta_comentario_codigo);
@@ -105,7 +105,7 @@ public class ComentarioActivity extends AppCompatActivity {
         prato.setId(Integer.parseInt(codigoPrato.getText().toString()));
         Restaurante restaurante = new Restaurante();
         restaurante.setCodigo(Integer.parseInt(codigoRestaurante.getText().toString()));
-        Comentario comentario = new Comentario();
+        final Comentario comentario = new Comentario();
         comentario.setRestaurante(restaurante);
         comentario.setPrato(prato);
         comentario.setPessoa(pessoa);
@@ -119,6 +119,8 @@ public class ComentarioActivity extends AppCompatActivity {
             public void onResponse(Call<Comentario> call, Response<Comentario> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(ComentarioActivity.this, "Agradecemos seu comentário", Toast.LENGTH_SHORT).show();
+                    getComentario(Integer.parseInt(codigoComentario.getText().toString()));
+                    textoResposta.setText("");
                 }
             }
 

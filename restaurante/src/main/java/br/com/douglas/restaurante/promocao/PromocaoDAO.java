@@ -35,6 +35,19 @@ public class PromocaoDAO implements IPromocao{
 		Promocao promocao = (Promocao) query.getSingleResult();
 		return promocao;
 	}
+
+	@Override
+	public boolean setStatus(int codigo, String status) {
+		Query query = sessionFactory.getCurrentSession().createQuery("from Promocao p where p.codigo = :codigo");
+		query.setParameter("codigo", codigo);
+		Promocao promocao = (Promocao) query.getSingleResult();
+		promocao.setStatus(status);
+		promocao = savePromocao(promocao);
+		if(promocao != null){
+			return true;
+		}
+		return false;
+	}
 	
 	
 

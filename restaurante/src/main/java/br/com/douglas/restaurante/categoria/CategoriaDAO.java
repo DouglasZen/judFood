@@ -19,9 +19,9 @@ public class CategoriaDAO implements ICategoria{
 	@Override
 	public List<Categoria> listCategoria(int codigoRestaurante) {
 		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Categoria.class);
-		Restaurante r = new Restaurante();
-		r.setCodigo(codigoRestaurante);
-		crit.add(Restrictions.eq("restaurante", r));
+		//Restaurante r = new Restaurante();
+		//r.setCodigo(codigoRestaurante);
+		//crit.add(Restrictions.eq("restaurante", r));
 		return crit.list();
 		
 	}

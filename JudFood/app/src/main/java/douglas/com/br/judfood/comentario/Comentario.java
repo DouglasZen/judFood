@@ -23,6 +23,7 @@ public class Comentario implements Serializable{
     @SerializedName(value="respostas")
     private List<Comentario> respostas;
     private String codComentario;
+    private int total;
 
     public int getCodigo() {
         return codigo;
@@ -78,5 +79,13 @@ public class Comentario implements Serializable{
 
     public void setCodComentario(String codComentario) {
         this.codComentario = codComentario;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 }

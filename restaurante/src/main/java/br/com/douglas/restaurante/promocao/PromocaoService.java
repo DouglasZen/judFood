@@ -24,4 +24,8 @@ public class PromocaoService {
 	public Promocao getPromocao(int codigo){
 		return dao.getPromocao(codigo);
 	}
+	
+	public boolean setStatus(int codigo, String status){
+		return dao.setStatus(codigo, status);
+	}
 }

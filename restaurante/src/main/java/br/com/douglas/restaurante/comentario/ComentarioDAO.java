@@ -36,7 +36,8 @@ public class ComentarioDAO implements IComentario{
 	public List<Comentario> ultimosComentarioRestaurante(int codigoRestaurante) {
 		String q = "select c from Comentario c "
 				+ " where c.restaurante.codigo = :codigo "
-				+ " and c.cod_comentario IS NULL"
+				+ " and c.codigo not in (select r.cod_comentario from Comentario r where r.cod_comentario != NULL)"
+				+ " and c.cod_comentario = NULL"
 				+ " order by c.codigo desc";
 				
 		Query query = session.getCurrentSession().createQuery(q);

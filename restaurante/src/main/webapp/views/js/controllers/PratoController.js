@@ -10,15 +10,18 @@
 		$scope.categoria = [];
 		$scope.comentario = [];
 		$scope.respostas = [];
-		$scope.imagem;
+		$scope.imagem = '';
 		$scope.codigo_comentario;
 		$scope.codigo_prato;
+		$scope.mensagem;
+		$scope.isImagem = false;
 		listCategoria();
 		init();
 		
 		$scope.setImage = function(imagem){
 			$scope.imagem = imagem[0];
 			$scope.prato.imagem = '';
+			$scope.isImagem = true;
 			$("#imagemSalva").attr("src", '');
 		}
 		
@@ -44,42 +47,47 @@
 		}
 		
 		$scope.salvar = function(prato){
-			var params = new FormData();
-			
-			if($("#codigoprato").val() != ''){
-				prato.id = $("#codigoprato").val();
-				params.append('prato', angular.toJson(prato));
-				if(prato.imagem == ''){
+			if(verificarEntrada()){
+				$scope.mensagem = '';
+				var params = new FormData();
+				
+				if($("#codigoprato").val() != ''){
+					prato.id = $("#codigoprato").val();
+					params.append('prato', angular.toJson(prato));
+					if(prato.imagem == ''){
+						params.append('imagem', $scope.imagem);
+					}
+					console.log(prato.imagem);
+					
+				}else{
+					params.append('prato', angular.toJson($scope.prato));
 					params.append('imagem', $scope.imagem);
 				}
-				console.log(prato.imagem);
 				
-			}else{
-				params.append('prato', angular.toJson($scope.prato));
-				params.append('imagem', $scope.imagem);
-			}
-			
-			
-			$http({
-				method: 'POST',
-				url: '/restaurante/prato/cadastro/salvar',
-				headers: {'Content-Type': undefined },
-				data: params,
-				transformRequest: function(data, headersGetterFunction){
-					return data;
-				}
-			}).success(function(data){
-				if(data.id != ''){
-					$("#codigoprato").val(data.id);
-					$scope.prato.imagem = data.imagem;
-					$("#modal-mensagem-sucesso").modal();
-				}else{
+				
+				$http({
+					method: 'POST',
+					url: '/restaurante/prato/cadastro/salvar',
+					headers: {'Content-Type': undefined },
+					data: params,
+					transformRequest: function(data, headersGetterFunction){
+						return data;
+					}
+				}).success(function(data){
+					if(data.id != ''){
+						$("#codigoprato").val(data.id);
+						$scope.prato.imagem = data.imagem;
+						$("#modal-mensagem-sucesso").modal();
+					}else{
+						$("#modal-mensagem-error").modal();
+					}
+					
+				}).error(function(){
 					$("#modal-mensagem-error").modal();
-				}
-				
-			}).error(function(){
-				$("#modal-mensagem-error").modal();
-			});
+				});
+			}else{
+				$scope.mensagem = 'Campos obrigatórios não preenchidos!';
+			}
 		}
 		
 		function listCategoria(){
@@ -94,7 +102,7 @@
 			if(codigo != ''){
 				$http.get('/restaurante/prato/getPrato/' + codigo).success(function(data){
 					$scope.prato = data;
-					
+					$scope.isImagem = true;
 				});
 				
 				$http.get('/restaurante/comentario/comentarioprato/' + codigo).success(function(data){
@@ -109,6 +117,15 @@
 			});
 		}
 		
-		
+		function verificarEntrada(){
+			var validador = false;
+			var nome = $("#nome").val();
+			var descricao = $("#email").val();
+			var categoria = $("#categoria").find('option:selected').val();
+			if(nome != '' && descricao != '' && categoria != '' && $scope.isImagem == true){
+				validador = true;
+			}
+			return validador;
+		}
 	}
 })();

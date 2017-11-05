@@ -30,7 +30,7 @@ public class PratoDAO extends BaseDAO{
 	
 	public List<Prato> listarPratoRestaurante(int codigoRestaurante){
 		em.getTransaction().begin();
-		Query query = em.createQuery("select p from Prato p where p.restaurante.codigo = :codigo", Prato.class);
+		Query query = em.createQuery("select p from Prato p where p.restaurante.codigo = :codigo and p.status = 1", Prato.class);
 		query.setParameter("codigo", codigoRestaurante);
 		List<Prato> pratos = query.getResultList();
 		em.flush();
@@ -44,6 +44,7 @@ public class PratoDAO extends BaseDAO{
 	}*/
 	
 	public Prato getPrato(int codigo, int codigo_pessoa){
+		em.getTransaction().begin();
 		Prato prato = new Prato();
 		Query query = em.createQuery("select p,"
 								   + "(select a "
@@ -52,7 +53,8 @@ public class PratoDAO extends BaseDAO{
 								   + " and a.pessoa.codigo = :codigo_pessoa),"
 								   + " (select count(c.codigo)"
 								   + "  from Comentario c"
-								   + "  where c.prato.id = :codigo)"
+								   + "  where c.prato.id = :codigo"
+								   + "	and c.codComentario = NULL)"
 								   + "from Prato p "
 								   + "where p.id = :codigo");
 		query.setParameter("codigo_pessoa", codigo_pessoa);
@@ -68,6 +70,7 @@ public class PratoDAO extends BaseDAO{
 			}
 			prato.setTotal_comentario(Integer.parseInt(result[2].toString()));
 		}
+		em.flush();
 		em.close();
 		return prato;
 	}

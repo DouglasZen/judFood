@@ -1,6 +1,7 @@
 package douglas.com.br.judfood.view.comentario;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,13 @@ public class ComentarioAdapter extends RecyclerView.Adapter{
         holder.codigo_comentario.setText(String.valueOf(comentario.getCodigo()));
 
         holder.texto.setText(comentario.getComentario());
-
+        if(comentario.getTotal() > 0){
+            if(comentario.getTotal() == 1)
+                holder.total.setText(comentario.getTotal() + " resposta");
+            else
+                holder.total.setText(comentario.getTotal() + " respostas");
+        }
+        holder.total.setTypeface(null, Typeface.BOLD);
         if(onClickListener != null){
             holder.responder.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View view){

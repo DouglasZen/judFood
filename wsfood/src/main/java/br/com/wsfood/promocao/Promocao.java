@@ -38,7 +38,8 @@ public class Promocao {
 	@ManyToOne
 	@JoinColumn(name="codigo_restaurante")
 	private Restaurante restaurante;
-	
+	@Column(name="status")
+	private String status;
 	
 	public Integer getCodigo() {
 		return codigo;
@@ -75,6 +76,12 @@ public class Promocao {
 	}
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

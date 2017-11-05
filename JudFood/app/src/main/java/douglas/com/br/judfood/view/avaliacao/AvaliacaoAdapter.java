@@ -52,12 +52,7 @@ public class AvaliacaoAdapter extends RecyclerView.Adapter{
         boolean isFavorito = false;
         Prato prato = avaliacoes.get(position).getPrato();
 
-        byte[] image = Base64.decode(prato.getImagem(), Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-
-        holder.descricao.setText(prato.getDescricao());
-        holder.imagem.setImageBitmap(bitmap);
-        holder.nome.setText(prato.getNome());
+        holder.nome.setText(String.valueOf(position + 1) + "º " + prato.getNome());
         holder.codigoPrato.setText(String.valueOf(prato.getId()));
         holder.codigoRestaurante.setText(String.valueOf(prato.getRestaurante().getCodigo()));
         for (Favorito favorito: favoritos) {

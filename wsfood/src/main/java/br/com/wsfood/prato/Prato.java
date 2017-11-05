@@ -43,6 +43,8 @@ public class Prato {
 	private int cod_avaliacao;
 	@Transient
 	private int total_comentario;
+	@Column(name="status")
+	private String status;
 	
 	public Integer getId() {
 		return id;
@@ -97,6 +99,12 @@ public class Prato {
 	}
 	public void setTotal_comentario(int total_comentario) {
 		this.total_comentario = total_comentario;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

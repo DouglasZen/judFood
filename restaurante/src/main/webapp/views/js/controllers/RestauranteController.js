@@ -9,6 +9,7 @@
 		$scope.restaurante = {};
 		$scope.usuarios = [];
 		$scope.editar = false;
+		$scope.mensagem;
 		init();
 		
 		function init(){
@@ -22,22 +23,26 @@
 		}
 		
 		$scope.salvar = function(restaurante){
-			if($("#codigoRestaurante").val() != ''){
-				$scope.editar = true;
-				restaurante.codigo = $("#codigoRestaurante").val();
-			}
-			$http.post('/restaurante/restaurante/cadastro/salvar', restaurante).success(function(data){
-				if(data){
-					$("#codigoRestaurante").val(data.codigo)
-					if(data.codigo != '' && $scope.editar){
-						listarUsuarios(data.codigo);
-						$("#modal-mensagem-sucesso").modal();
-					}else if(data.codigo != '' && !$scope.editar){
-						$window.location.href = '/restaurante/home/';						
-					}
-
+			if(verificarEntrada()){
+				if($("#codigoRestaurante").val() != ''){
+					$scope.editar = true;
+					restaurante.codigo = $("#codigoRestaurante").val();
 				}
-			})
+				$http.post('/restaurante/restaurante/cadastro/salvar', restaurante).success(function(data){
+					if(data){
+						$("#codigoRestaurante").val(data.codigo)
+						if(data.codigo != '' && $scope.editar){
+							listarUsuarios(data.codigo);
+							$("#modal-mensagem-sucesso").modal();
+						}else if(data.codigo != '' && !$scope.editar){
+							$window.location.href = '/restaurante/home/';						
+						}
+	
+					}
+				})
+			}else{
+				$scope.mensagem = 'Campos obrigatórios não preenchidos!';
+			}
 		}
 		
 		$scope.editar = function(codigo){
@@ -57,6 +62,16 @@
 			$http.get('/restaurante/restaurante/getRestaurante/' + codigo).success(function(data){
 				$scope.restaurante = data;
 			})
+		}
+		
+		function verificarEntrada(){
+			var validador = false;
+			var nome = $("#nome").val();
+			var endereco = $("#endereo").val();
+			if(nome != '' && endereco != ''){
+				validador = true;
+			}
+			return validador;
 		}
 	}
 })();

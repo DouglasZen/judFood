@@ -60,6 +60,7 @@ public class PromocaoController {
 	@ResponseBody
 	public Promocao savePromocao(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception{
 		Promocao promocao = new Promocao();
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
 		promocao = new Gson().fromJson(request.getParameter("promocao"), Promocao.class);
 		promocao.setData_inicio(formato.parse(promocao.getData_inicio_str()));
 		promocao.setData_fim(formato.parse(promocao.getData_fim_str()));
@@ -70,14 +71,15 @@ public class PromocaoController {
 				String img64 = Base64.getEncoder().encodeToString(imagem);
 				promocao.setImagem(img64);
 			}
+			promocao.setRestaurante(usuario.getRestaurante());
 			service.savePromocao(promocao);
 		}else{
-			Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
 			MultipartFile file = request.getFile("imagem");
 			byte[] imagem = file.getBytes();
 			String img64 = Base64.getEncoder().encodeToString(imagem);
 			promocao.setImagem(img64);
 			promocao.setRestaurante(usuario.getRestaurante());
+			promocao.setStatus("1");
 			service.savePromocao(promocao);
 		}
 		return promocao;
@@ -92,6 +94,11 @@ public class PromocaoController {
 		promocao.setData_inicio(null);
 		promocao.setData_fim(null);
 		return promocao;
+	}
+	
+	@RequestMapping(value="/setStatus/{codigo}/{status}", method=RequestMethod.GET)
+	public @ResponseBody boolean setStatus(@PathVariable("codigo") int codigo, @PathVariable("status") String status){
+		return service.setStatus(codigo, status);
 	}
 	
 }

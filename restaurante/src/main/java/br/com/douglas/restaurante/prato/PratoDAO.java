@@ -37,10 +37,20 @@ public class PratoDAO implements IPrato{
 		Prato prato = (Prato) query.getSingleResult();
 		return prato;
 	}
-
+	
+	public boolean setStatus(int codigo, String status){
+		Query query = sessionFactory.getCurrentSession().createQuery("from Prato p where p.id= :codigo");
+		query.setParameter("codigo", codigo);
+		Prato prato = (Prato) query.getSingleResult();
+		prato.setStatus(status);
+		prato = addPrato(prato);
+		if(prato != null){
+			return true;
+		}
+		return false;
+	}
 	@Override
 	public double getMedia(int codigo) {
-		
 		return 0;
 	}
 	

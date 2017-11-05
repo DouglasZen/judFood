@@ -6,20 +6,24 @@
 	<input type="hidden" ng-model="prato.id" value="${requestScope.codigo}" id="codigoprato"/>
 	<div class="row">
 		<div class="col-lg-12">
+			<div class="alert alert-danger" id="error" ng-if="mensagem">
+                {{mensagem}}
+            </div>
 			<div class="col-lg-6 col-md-6 ">
 				<div>
-					<label>Nome</label>
-					<input class="form-control" ng-model="prato.nome">
+					<label>Nome *</label>
+					<input class="form-control" ng-model="prato.nome" id="nome">
 				</div>
 				<div>
-					<label>Descrição</label>
-					<textarea class="form-control" ng-model="prato.descricao" rows="5"></textarea>
+					<label>Descrição *</label>
+					<textarea class="form-control" ng-model="prato.descricao" rows="5" id="descricao"></textarea>
 				</div>
 				<div>
-					<label>Categoria</label>
+					<label>Categoria *</label>
 					<select name="categoria" class="form-control" 
 							ng-model="prato.categoria.codigo" 
 							ng-options="option.codigo as option.descricao for option in categoria" material-select watch
+							id="categoria"
 							>
 						
 						<option value="">Selecione</option>
@@ -29,7 +33,7 @@
 			</div>
 			<div class="col-lg-6 col-md-6 ">
 				<div>
-					<label>Imagem:</label>
+					<label>* Imagem:</label>
 					<input type="file" ng-model="prato.imagem" onchange="angular.element(this).scope().setImage(this.files)">
 				</div>
 				<div>

@@ -12,10 +12,12 @@ public class AvaliacaoDAO extends BaseDAO{
 	EntityManager em = getEntityManager();
 	
 	public List<Avaliacao> ranking(int codCategoria){
+		em.getTransaction().begin();
 		List<Avaliacao> avaliacao = new ArrayList<Avaliacao>();
 		Query query = em.createQuery("select a, sum(a.nota) "
 								   + "from Avaliacao a "
 								   + "where a.prato.categoria.codigo = :codigo "
+								   + "and a.prato.status = 1"
 								   + "group by a.prato.id "
 								   + "order by sum(a.nota) desc");
 		query.setParameter("codigo", codCategoria);
@@ -26,6 +28,7 @@ public class AvaliacaoDAO extends BaseDAO{
 			a.setMedia(Double.parseDouble(result[1].toString()));
 			avaliacao.add(a);
 		}
+		em.flush();
 		em.close();
 		return avaliacao;
 	}

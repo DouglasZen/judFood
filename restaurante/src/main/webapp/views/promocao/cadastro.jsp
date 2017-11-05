@@ -18,24 +18,24 @@ $(document).ready(function(){
                 {{mensagem}}
             </div>
 			<div>
-				<label>Título</label>
-				<input class="form-control" ng-model="promocao.titulo">
+				<label>Título *</label>
+				<input class="form-control" ng-model="promocao.titulo" id="titulo">
 			</div>
 			<div>
-				<label>Descrição</label>
-				<textarea class="form-control" ng-model="promocao.descricao" rows="5"></textarea>
+				<label>Descrição *</label>
+				<textarea class="form-control" ng-model="promocao.descricao" rows="5" id="descricao"></textarea>
 			</div>
 			<div>
-				<label>Data de início</label>
+				<label>Data de início *</label>
 				<input type="text" class="form-control data" ng-model="promocao.data_inicio_str" id="dt_ini">
 				
 			</div>
 			<div>
-				<label>Data final</label>
+				<label>Data final *</label>
 				<input type="text" class="form-control data" ng-model="promocao.data_fim_str" id="dt_fim">
 			</div>
 			<div>
-				<label>Imagem:</label>
+				<label>* Imagem:</label>
 				<input type="file" ng-model="promocao.imagem" onchange="angular.element(this).scope().setImage(this.files)">
 			</div>
 			<div>

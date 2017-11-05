@@ -41,6 +41,7 @@ import douglas.com.br.judfood.util.Prefs;
 import douglas.com.br.judfood.view.home.HomeActivity;
 import douglas.com.br.judfood.view.login.LoginActivity;
 import douglas.com.br.judfood.view.prato.PratoActivity;
+import douglas.com.br.judfood.view.prato.PratoIntegraActivity;
 import douglas.com.br.judfood.view.restaurante.RestauranteActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,6 +59,7 @@ public class AvaliacaoActivity extends AppCompatActivity {
     ImageView iv;
     TextView tvDesc;
     CardView cv;
+    String codCategoria = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,54 +133,11 @@ public class AvaliacaoActivity extends AppCompatActivity {
     private AvaliacaoAdapter.AvaliacaoonClickListener onClickAvaliacao(){
         return new AvaliacaoAdapter.AvaliacaoonClickListener(){
             public void onClickAvaliacao(final  View view, int idx){
-                ValueAnimator valueAnimator;
-                iv = (ImageView) view.findViewById(R.id.a_imageView);
-                tvDesc = (TextView) view.findViewById(R.id.a_tdescricao);
-                ImageButton star = (ImageButton) view.findViewById(R.id.a_favorito);
-                if (originalHeight == 0) {
-                    originalHeight = view.getHeight();
-                }
-                if(!cardOpen){
-                    iv.setVisibility(VISIBLE);
-                    tvDesc.setVisibility(VISIBLE);
-                    cardOpen = true;
-                    valueAnimator = ValueAnimator.ofInt(originalHeight + (int) (originalHeight * 2));
-                }else{
-                    cardOpen = false;
-                    valueAnimator = ValueAnimator.ofInt(originalHeight + (int) (originalHeight * 2), originalHeight);
-                    Animation a = new AlphaAnimation(1.00f, 0.00f);
-                    a.setDuration(200);
-                    a.setAnimationListener(new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            iv.setVisibility(INVISIBLE);
-                            tvDesc.setVisibility(INVISIBLE);
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {
-
-                        }
-                    });
-                    cv = (CardView) view.findViewById(R.id.cardAvaliacao);
-                    cv.startAnimation(a);
-                }
-                valueAnimator.setDuration(200);
-                valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
-                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        Integer value = (Integer) animation.getAnimatedValue();
-                        view.getLayoutParams().height = value.intValue();
-                        view.requestLayout();
-                    }
-                });
-                valueAnimator.start();
-
+                TextView codigo_prato = (TextView) view.findViewById(R.id.a_codigo_prato);
+                Intent i = new Intent(AvaliacaoActivity.this, PratoIntegraActivity.class);
+                i.putExtra("codigo_prato", codigo_prato.getText().toString());
+                i.putExtra("origem", "ranking");
+                startActivity(i);
             }
 
             @Override

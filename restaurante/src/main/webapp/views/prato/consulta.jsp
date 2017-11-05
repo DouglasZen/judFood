@@ -74,7 +74,12 @@ $(document).ready(function() {
 							 <tr>
 								<td>${prato.id}</td>
 								<td>${prato.nome}</td>
-								<td><a href="" ng-click="editar(${prato.id})"><i class="fa fa-pencil"></i></a></td> 
+								<td>
+									<a href="" ng-click="editar(${prato.id})"><i class="fa fa-pencil"></i></a>
+									<a href="" ng-if="${prato.status } == 0" ng-click="ativar(${prato.id})"><i class="fa fa-check" style="color: green;"></i></a>
+									<a href="" ng-if="${prato.status } == 1" ng-click="desativar(${prato.id})"><i class="fa fa-times" style="color: red;"></i></a>
+									
+								</td> 
 							</tr>		 
 						</c:forEach>
 					</tbody>

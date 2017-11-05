@@ -24,4 +24,8 @@ public class PratoService {
 	public Prato getPrato(int codigo){
 		return dao.getPrato(codigo);
 	}
+	
+	public boolean setStatus(int codigo, String status){
+		return dao.setStatus(codigo, status);
+	}
 }

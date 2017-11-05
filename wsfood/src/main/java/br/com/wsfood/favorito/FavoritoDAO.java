@@ -31,7 +31,7 @@ public class FavoritoDAO extends BaseDAO{
 	
 	public List<Favorito> listarFavoritosUsuario(int codPessoa){
 		em.getTransaction().begin();
-		Query query = em.createQuery("select f from Favorito f where f.pessoa.codigo = :codigo", Favorito.class);
+		Query query = em.createQuery("select f from Favorito f where f.pessoa.codigo = :codigo and f.prato.status = 1", Favorito.class);
 		query.setParameter("codigo", codPessoa);
 		List<Favorito> favoritos = query.getResultList();
 		em.flush();

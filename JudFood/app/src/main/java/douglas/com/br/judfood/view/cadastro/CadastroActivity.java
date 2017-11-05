@@ -37,20 +37,39 @@ public class CadastroActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.etEmail);
         senha = (EditText) findViewById(R.id.etSenha);
         confSenha = (EditText) findViewById(R.id.etConfSenha);
-
-        if(senha.getText().toString().equals(confSenha.getText().toString())) {
-            Pessoa pessoa = new Pessoa();
-            pessoa.setNome(nome.getText().toString());
-            pessoa.setEmail(email.getText().toString());
-            pessoa.setSenha(senha.getText().toString());
-            verificaEmail(pessoa);
+        if(verificarCadastro()) {
+            if (senha.getText().toString().equals(confSenha.getText().toString())) {
+                Pessoa pessoa = new Pessoa();
+                pessoa.setNome(nome.getText().toString());
+                pessoa.setEmail(email.getText().toString());
+                pessoa.setSenha(senha.getText().toString());
+                verificaEmail(pessoa);
+            } else {
+                Toast.makeText(CadastroActivity.this, "As senhas não conferem", Toast.LENGTH_LONG).show();
+            }
         }else{
-            Toast.makeText(CadastroActivity.this, "As senhas não conferem", Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastroActivity.this, "Todos os campos devem ser preenchidos", Toast.LENGTH_LONG).show();
         }
 
 
     }
+    public boolean verificarCadastro(){
+        nome = (EditText) findViewById(R.id.etNome);
+        email = (EditText) findViewById(R.id.etEmail);
+        senha = (EditText) findViewById(R.id.etSenha);
+        confSenha = (EditText) findViewById(R.id.etConfSenha);
 
+        String aux_nome = nome.getText().toString();
+        String aux_email = email.getText().toString();
+        String aux_senha = senha.getText().toString();
+        String aux_conf_senha = confSenha.getText().toString();
+
+        if(!"".equals(aux_nome) && !"".equals(aux_email) && !"".equals(aux_senha) && !"".equals(aux_conf_senha)){
+            return true;
+        }
+        return false;
+
+    }
     public void verificaEmail(final Pessoa pessoa){
         IPessoaService service = ServiceGenerator.createService(IPessoaService.class);
         final Call<Resultado> call = service.verificaemail(pessoa);

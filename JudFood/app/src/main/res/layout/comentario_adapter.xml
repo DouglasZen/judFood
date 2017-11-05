@@ -33,6 +33,13 @@
         android:layout_height="wrap_content"
         />
     <TextView
+        android:id="@+id/comentario_total_resposta"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/comentario_texto"
+        android:layout_toEndOf="@+id/comentario_codigo">
+    </TextView>
+    <TextView
         android:id="@+id/comentario_responder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

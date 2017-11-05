@@ -15,12 +15,13 @@ public class PromocaoDAO extends BaseDAO{
 	private EntityManager em = getEntityManager();
 	
 	public List<Promocao> promocoes(){
+		em.getTransaction().begin();
 		Date data = new Date();
-		Query query = em.createQuery("select p from Promocao p where p.dataini <= :data1 and p.datafim > :data2");
+		Query query = em.createQuery("select p from Promocao p where p.dataini <= :data1 and p.datafim > :data2 and p.status = 1");
 		query.setParameter("data1", data, TemporalType.TIMESTAMP);
 		query.setParameter("data2", data, TemporalType.TIMESTAMP);
 		List<Promocao> p = query.getResultList();
-		
+		em.flush();
 		em.close();
 		return p;
 	}

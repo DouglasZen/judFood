@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -49,6 +50,8 @@ public class Comentario implements Serializable{
 	private List<Comentario> respostas;
 	@Column(name="codigo_comentario")
 	private String codComentario;
+	@Transient
+	private int total;
 	
 	public Integer getCodigo() {
 		return codigo;
@@ -92,6 +95,12 @@ public class Comentario implements Serializable{
 	}
 	public void setCodComentario(String codComentario) {
 		this.codComentario = codComentario;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
 	}
 	
 	
