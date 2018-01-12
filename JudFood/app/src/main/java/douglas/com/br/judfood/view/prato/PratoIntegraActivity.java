@@ -60,7 +60,7 @@ public class PratoIntegraActivity extends AppCompatActivity {
         int tamanho = extras.size();
         if(extras != null){
             getPrato(extras.getString("codigo_prato").toString());
-            if(tamanho > 1)
+            if(tamanho > 1 && null != extras.getString("origem"))
                 origem = extras.getString("origem").toString();
             //Toast.makeText(this, extras.getString("codigo_prato").toString(), Toast.LENGTH_SHORT).show();
         }
@@ -74,7 +74,6 @@ public class PratoIntegraActivity extends AppCompatActivity {
                 i = new Intent(PratoIntegraActivity.this, FavoritoActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             }else if("ranking".equals(origem)){
-
                 i = new Intent(PratoIntegraActivity.this, AvaliacaoActivity.class);
                 i.putExtra("codigoCategoria", tv_codigo_categoria.getText().toString());
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -141,6 +141,7 @@ public class PratoActivity extends AppCompatActivity {
                 TextView codigo_prato = (TextView) view.findViewById(R.id.codigo_prato);
                 Intent i = new Intent(PratoActivity.this, PratoIntegraActivity.class);
                 i.putExtra("codigo_prato", codigo_prato.getText().toString());
+                i.putExtra("origem", "favorito");
                 startActivity(i);
             }
 

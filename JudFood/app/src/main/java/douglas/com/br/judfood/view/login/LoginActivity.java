@@ -177,37 +177,41 @@ public class LoginActivity extends AppCompatActivity {
         Prefs.setLogado(this, "login", false);
         email = (EditText) findViewById(R.id.email);
         senha = (EditText) findViewById(R.id.senha);
-        Pessoa pessoa = new Pessoa();
-        pessoa.setSenha(senha.getText().toString());
-        pessoa.setEmail(email.getText().toString());
+        if(("".equals(email.getText().toString()) && ("".equals(senha.getText().toString())))){
+            Toast.makeText(LoginActivity.this, "Preencha os campos E-mail e Senha", Toast.LENGTH_SHORT).show();
+        }else {
+            Pessoa pessoa = new Pessoa();
+            pessoa.setSenha(senha.getText().toString());
+            pessoa.setEmail(email.getText().toString());
 
-        ILoginService service = ServiceGenerator.createService(ILoginService.class);
-        final Call<Pessoa> call = service.login(pessoa);
-        call.enqueue(new Callback<Pessoa>() {
-            @Override
-            public void onResponse(Call<Pessoa> call, Response<Pessoa> response) {
-                if(response.isSuccessful()){
-                    Pessoa pessoa = response.body();
-                    if(pessoa.getCodigo() != null){
-                        Log.v("LOGIN", "logou");
-                        Prefs.setLogado(LoginActivity.this, "login", true);
-                        Prefs.setCodigoPessoa(LoginActivity.this, "codigoPessoa", pessoa.getCodigo());
-                        listarFavoritos(pessoa.getCodigo());
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        finish();
-                    }else{
-                        Toast.makeText(LoginActivity.this, "Login Incorreto", Toast.LENGTH_SHORT).show();
+            ILoginService service = ServiceGenerator.createService(ILoginService.class);
+            final Call<Pessoa> call = service.login(pessoa);
+            call.enqueue(new Callback<Pessoa>() {
+                @Override
+                public void onResponse(Call<Pessoa> call, Response<Pessoa> response) {
+                    if (response.isSuccessful()) {
+                        Pessoa pessoa = response.body();
+                        if (pessoa.getCodigo() != null) {
+                            Log.v("LOGIN", "logou");
+                            Prefs.setLogado(LoginActivity.this, "login", true);
+                            Prefs.setCodigoPessoa(LoginActivity.this, "codigoPessoa", pessoa.getCodigo());
+                            listarFavoritos(pessoa.getCodigo());
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Login Incorreto", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Pessoa> call, Throwable t) {
-                Log.e("ERRO LOGIN", t.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(Call<Pessoa> call, Throwable t) {
+                    Log.e("ERRO LOGIN", t.getMessage());
+                }
+            });
+        }
     }
 
     public void listarFavoritos(int codigo){

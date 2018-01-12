@@ -53,6 +53,7 @@ public class PromocaoAdapter extends RecyclerView.Adapter{
         //holder.iv_promocao_imagem.setImageBitmap(bitmap);
         holder.iv_promocao_imagem.setBackground(new BitmapDrawable(bitmap));
         holder.tv_promocao_nome.setText(promocao.getDescricao());
+        holder.tv_promocao_restaurante.setText(promocao.getRestaurante().getNome());
     }
 
     @Override

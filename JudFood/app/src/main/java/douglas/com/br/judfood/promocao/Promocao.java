@@ -2,6 +2,8 @@ package douglas.com.br.judfood.promocao;
 
 import java.util.Date;
 
+import douglas.com.br.judfood.restaurante.Restaurante;
+
 /**
  * Created by Douglas on 02/10/2017.
  */
@@ -12,6 +14,7 @@ public class Promocao {
     //private Date dataini;
     //private Date datafim;
     private String imagem;
+    private Restaurante restaurante;
 
     public int getCodigo() {
         return codigo;
@@ -51,5 +54,13 @@ public class Promocao {
 
     public void setImagem(String imagem) {
         this.imagem = imagem;
+    }
+
+    public Restaurante getRestaurante() {
+        return restaurante;
+    }
+
+    public void setRestaurante(Restaurante restaurante) {
+        this.restaurante = restaurante;
     }
 }

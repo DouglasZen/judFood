@@ -19,13 +19,21 @@
         <ImageView
             android:id="@+id/promocao_imagem"
             android:layout_width="match_parent"
-            android:layout_height="340dp" />
+            android:layout_height="330dp" />
 
+        <TextView
+            android:id="@+id/promocao_restaurante"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/promocao_imagem"
+            android:text="teste"
+            android:gravity="center"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/promocao_nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/promocao_imagem"
+            android:layout_below="@+id/promocao_restaurante"
             android:text="teste"
             android:gravity="center"/>
     </RelativeLayout>

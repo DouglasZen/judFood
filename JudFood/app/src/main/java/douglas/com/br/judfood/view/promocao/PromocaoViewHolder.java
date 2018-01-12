@@ -14,6 +14,7 @@ import douglas.com.br.judfood.R;
 public class PromocaoViewHolder extends RecyclerView.ViewHolder{
     final TextView tv_promocao_nome;
     final ImageView iv_promocao_imagem;
+    final TextView tv_promocao_restaurante;
     final View view;
 
     public PromocaoViewHolder(View view){
@@ -21,5 +22,6 @@ public class PromocaoViewHolder extends RecyclerView.ViewHolder{
         this.view = view;
         this.iv_promocao_imagem = (ImageView) view.findViewById(R.id.promocao_imagem);
         this.tv_promocao_nome = (TextView) view.findViewById(R.id.promocao_nome);
+        this.tv_promocao_restaurante = (TextView) view.findViewById(R.id.promocao_restaurante);
     }
 }
